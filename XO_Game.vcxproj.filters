@@ -50,17 +50,14 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game.hpp">
+    <ClInclude Include="src\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\5x5\FFiveGame.hpp">
+    <ClInclude Include="src\5x5\FFiveGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="forms\PyramidGame.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtUic Include="forms\5x5Game.ui">
       <Filter>Form Files</Filter>
     </QtUic>

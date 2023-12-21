@@ -1,7 +1,7 @@
 #ifndef _PYRAMIC_GAME_
 #define _PYRAMIC_GAME_
 
-#include "Game.hpp"
+#include "Game.h"
 #include "ui_PyramidGame.h"
 
 

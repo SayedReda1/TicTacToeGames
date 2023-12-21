@@ -1,4 +1,4 @@
-#include "FFiveGame.hpp"
+#include "FFiveGame.h"
 
 FFivePlayer::FFivePlayer(Game* game, QChar symbol)
 	: game(game), symbol(symbol.toUpper()), name("Unkown Player")

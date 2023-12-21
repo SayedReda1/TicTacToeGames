@@ -112,12 +112,11 @@
     <QtRcc Include="resource\resource.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\5x5\FFiveGame.hpp" />
-    <ClInclude Include="src\Game.hpp" />
+    <ClInclude Include="src\5x5\FFiveGame.h" />
+    <ClInclude Include="src\Game.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="forms\5x5Game.ui" />
-    <QtUic Include="forms\PyramidGame.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

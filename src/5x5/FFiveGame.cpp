@@ -1,4 +1,4 @@
-#include "5x5/FFiveGame.hpp"
+#include "5x5/FFiveGame.h"
 #include <QMessageBox>
 
 FFiveGame::FFiveGame(const QString& playerName1, QWidget* parent)
@@ -122,6 +122,9 @@ bool FFiveGame::is_winner()
 
     p1 = x_score;
     p2 = o_score;
+
+    // Update scores on screen
+    update_score_labels();
 
     if (n_moves == 24 && (x_score > o_score || o_score > x_score))
     {
@@ -300,6 +303,7 @@ void FFiveGame::update_score_labels()
 
 void FFiveGame::onButtonClick(int index)
 {
+
     update_board(players[turn]->get_symbol(), index);
 
     if (is_winner())
@@ -317,9 +321,6 @@ void FFiveGame::onButtonClick(int index)
 
     // Disconnect all buttons
     disconnect_buttons();
-
-    // Update scores on screen
-    update_score_labels();
 
     // Next Player's turn
     next_player_move();

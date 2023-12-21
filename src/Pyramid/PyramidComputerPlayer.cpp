@@ -1,4 +1,4 @@
-#include "PyramidGame.hpp"
+#include "PyramidGame.h"
 
 
 PyramidComputerPlayer::PyramidComputerPlayer(Game* game, QChar symbol)

@@ -1,4 +1,4 @@
-#include "FFiveGame.hpp"
+#include "FFiveGame.h"
 #include <random>
 
 FFiveComputerPlayer::FFiveComputerPlayer(Game* game, QChar symbol)

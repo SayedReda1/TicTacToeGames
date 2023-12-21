@@ -2,7 +2,7 @@
 #ifndef _FFIVE_GAME
 #define _FFIVE_GAME
 
-#include "Game.hpp"
+#include "Game.h"
 #include "ui_5x5Game.h"
 
 
