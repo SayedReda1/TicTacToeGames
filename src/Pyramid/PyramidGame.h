@@ -29,7 +29,7 @@ public:
 
     // Shows a winning message passed true
     // Shows a draw message passed false
-    virtual void show_status(bool);
+    void show_status(bool);
 
     // Resets the game and all buttons and labels
     void reset_game();

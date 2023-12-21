@@ -40,6 +40,9 @@ PyramidGame::PyramidGame(const QString& playerName1, const QString& playerName2,
 {
     delete this->players[1];
     this->players[1] = new PyramidPlayer(this, 'O', playerName2, QColor(170, 0, 0));
+    
+    // Retype the name
+    ui->player2Label->setText(players[1]->get_name());
 }
 
 PyramidGame::~PyramidGame()
@@ -119,7 +122,7 @@ bool PyramidGame::increment_moves()
 void PyramidGame::show_status(bool win)
 {
     if (win)
-        QMessageBox::question(this, "Win", "Player" + players[turn]->get_name() + " WINS", QMessageBox::Ok);
+        QMessageBox::question(this, "Win", "Player: " + players[turn]->get_name() + " WINS", QMessageBox::Ok);
     else
         QMessageBox::question(this, "Draw", "It's a draw", QMessageBox::Ok);
 }

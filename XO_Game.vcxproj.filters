@@ -34,13 +34,13 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\5x5\FFiveComputerPlayer.cpp">
+    <ClCompile Include="src\Connect4\Connect4Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\5x5\FFiveGame.cpp">
+    <ClCompile Include="src\Connect4\Connect4Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\5x5\FFivePlayer.cpp">
+    <ClCompile Include="src\Connect4\Connect4ComputerPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,13 +53,15 @@
     <ClInclude Include="src\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\5x5\FFiveGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="forms\5x5Game.ui">
+    <QtUic Include="forms\Connect4.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src\Connect4\Connect4Game.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

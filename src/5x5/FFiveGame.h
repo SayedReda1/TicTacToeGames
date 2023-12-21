@@ -8,6 +8,8 @@
 
 class FFiveGame : public Game
 {
+    Q_OBJECT
+
 public:
     FFiveGame(const QString& playerName1, QWidget* parent = nullptr);
     FFiveGame(const QString& playerName1, const QString& playerName2, QWidget* parent = nullptr);

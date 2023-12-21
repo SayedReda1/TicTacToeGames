@@ -22,7 +22,7 @@ QPushButton {
 }
 
 QPushButton:hover {
-	background-color: #b40000;
+	background-color: #e94141;
 }
 
 QLabel {
