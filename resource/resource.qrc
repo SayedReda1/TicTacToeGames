@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/icons">
+    <file>redo.png</file>
     <file>home.png</file>
     <file>vs.png</file>
   </qresource>
