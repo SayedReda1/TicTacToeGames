@@ -3,6 +3,7 @@
 
 #include "Game.h"
 #include "ui_PyramidGame.h"
+#include <QStackedWidget>
 
 
 class PyramidGame;
@@ -15,8 +16,8 @@ class PyramidGame : public Game
     Q_OBJECT
 
 public:
-    PyramidGame(const QString& playerName1, QWidget* parent = nullptr);
-    PyramidGame(const QString& playerName1, const QString& playerName2, QWidget* parent = nullptr);
+    PyramidGame(const QString& playerName1, QStackedWidget* parent = nullptr);
+    PyramidGame(const QString& playerName1, const QString& playerName2, QStackedWidget* parent = nullptr);
     ~PyramidGame();
 
     // ------------ Game Functions -------------
@@ -55,21 +56,26 @@ public:
     // Increments n_moves variable
     bool increment_moves();
 
+    // Color cells
+    void color_cells(const QVector<QPushButton*>&, const QString&);
+
     // Connects all button to the appropriate slots for the next player
     void connect_buttons();
 
     // Resets all buttons slot connections
     void disconnect_buttons();
 
-    // signals
+public slots:
     void onButtonClick(int index);
+    void onHomeButton();
 
 private:
     bool turn;
     int n_moves;
     QVector<QPushButton*> board;
+    QStackedWidget* stack;
     Player* players[2];
-    Ui_Form* ui;
+    Ui_PyramidGame* ui;
 };
 
 class PyramidPlayer : public Player

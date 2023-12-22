@@ -4,9 +4,9 @@
 #include "PyramidGame.h"
 #include <QMessageBox>
 
-PyramidGame::PyramidGame(const QString& playerName1, QWidget* parent)
-    : Game(parent), ui(new Ui_Form()), n_moves(0)
-    , turn(0)
+PyramidGame::PyramidGame(const QString& playerName1, QStackedWidget* parent)
+    : Game(parent), ui(new Ui_PyramidGame), n_moves(0)
+    , turn(0), stack(parent)
 {
     ui->setupUi(this);
 
@@ -30,12 +30,13 @@ PyramidGame::PyramidGame(const QString& playerName1, QWidget* parent)
     board.push_back(ui->pushButton9);
 
     connect(ui->restartButton, &QPushButton::clicked, this, &PyramidGame::reset_game);
+    connect(ui->homeButton, &QPushButton::clicked, this, &PyramidGame::onHomeButton);
 
     // Get the first move
     players[turn]->get_move();
 }
 
-PyramidGame::PyramidGame(const QString& playerName1, const QString& playerName2, QWidget* parent)
+PyramidGame::PyramidGame(const QString& playerName1, const QString& playerName2, QStackedWidget* parent)
     : PyramidGame(playerName1, parent)
 {
     delete this->players[1];
@@ -64,6 +65,12 @@ bool PyramidGame::is_winner()
         found_winner |= board[x]->text() == board[y]->text() 
             && board[y]->text() == board[z]->text()
             && !board[x]->text().isEmpty();
+
+        if (found_winner)
+        {
+            color_cells({ board[x], board[y], board[z] }, "background-color: #65B741;");
+            return found_winner;
+        }
     }
 
     return found_winner;
@@ -119,6 +126,14 @@ bool PyramidGame::increment_moves()
     return false;
 }
 
+void PyramidGame::color_cells(const QVector<QPushButton*>& buttons, const QString& qss)
+{
+    for (auto& button : buttons)
+    {
+        button->setStyleSheet(qss);
+    }
+}
+
 void PyramidGame::show_status(bool win)
 {
     if (win)
@@ -135,6 +150,7 @@ void PyramidGame::reset_game()
         for (auto& button : board)
         {
             button->setDisabled(false);
+            button->setStyleSheet("");
             button->setText("");
         }
 
@@ -194,6 +210,15 @@ void PyramidGame::disconnect_buttons()
     disconnect(board[7], &QPushButton::clicked, 0, 0);
     disconnect(board[8], &QPushButton::clicked, 0, 0);
 
+}
+
+void PyramidGame::onHomeButton()
+{
+    if (QMessageBox::warning(this, "Go To Home", "This will erase your progress\nAre you sure to exit?", 
+        QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+    {
+        stack->setCurrentIndex(0);
+    }
 }
 
 void PyramidGame::onButtonClick(int index)

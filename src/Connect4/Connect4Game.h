@@ -3,6 +3,7 @@
 
 #include "Game.h"
 #include "ui_Connect4.h"
+#include <QStackedWidget.h>
 
 
 class Connect4Game : public Game
@@ -10,8 +11,8 @@ class Connect4Game : public Game
     Q_OBJECT
 
 public:
-    Connect4Game(const QString& playerName1, QWidget* parent = nullptr);
-    Connect4Game(const QString& playerName1, const QString& playerName2, QWidget* parent = nullptr);
+    Connect4Game(const QString& playerName1, QStackedWidget* parent = nullptr);
+    Connect4Game(const QString& playerName1, const QString& playerName2, QStackedWidget* parent = nullptr);
     ~Connect4Game();
 
     // ------------ Game Functions -------------
@@ -51,6 +52,9 @@ public:
     // Increments n_moves variable
     bool increment_moves();
 
+    // Color 4 cells
+    void color_cells(const QVector<QLabel*>&, const QString&);
+
     // Enable a button
     void enable_button(int index);
 
@@ -63,8 +67,9 @@ public:
     // Resets all buttons slot connections
     void disconnect_buttons();
 
-    // signals
+public slots:
     void onButtonClick(int index);
+    void onHomeButton();
 
 private:
     bool turn;
@@ -72,7 +77,8 @@ private:
     QVector<QVector<QLabel*>> stacks;
     QVector<QPushButton*> adders;
     Player* players[2];
-    Ui_Form* ui;
+    QStackedWidget* stack;
+    Ui_Connect4Game* ui;
 };
 
 class Connect4Player : public Player

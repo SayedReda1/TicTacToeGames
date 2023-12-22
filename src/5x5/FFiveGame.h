@@ -3,6 +3,7 @@
 #define _FFIVE_GAME
 
 #include "Game.h"
+#include <QStackedWidget>
 #include "ui_5x5Game.h"
 
 
@@ -11,8 +12,8 @@ class FFiveGame : public Game
     Q_OBJECT
 
 public:
-    FFiveGame(const QString& playerName1, QWidget* parent = nullptr);
-    FFiveGame(const QString& playerName1, const QString& playerName2, QWidget* parent = nullptr);
+    FFiveGame(const QString& playerName1, QStackedWidget* parent = nullptr);
+    FFiveGame(const QString& playerName1, const QString& playerName2, QStackedWidget* parent = nullptr);
     ~FFiveGame();
 
     // Always returns false unless it's 24 moves
@@ -26,7 +27,7 @@ public:
     // Shows a winning message when true is passed
     // Shows a draw message when false is passed
     // checks p1 & p2 then shows a message
-    virtual void show_status(bool);
+    void show_status(bool);
 
     // Resets the game and all buttons and labels
     void reset_game();
@@ -64,16 +65,18 @@ public:
     // Updates the players counter labels
     void update_score_labels();
 
-    // signals
+public slots:
     void onButtonClick(int index);
+    void onHomeButton();
 
 
 private:
     bool turn;
     int n_moves, p1, p2;
+    QStackedWidget* stack;
     QVector<QPushButton*> board;
     Player* players[2];
-    Ui_Form* ui;
+    Ui_FFiveGame* ui;
 };
 
 

@@ -1,9 +1,9 @@
 #include "5x5/FFiveGame.h"
 #include <QMessageBox>
 
-FFiveGame::FFiveGame(const QString& playerName1, QWidget* parent)
-    : Game(parent), ui(new Ui_Form()), n_moves(0)
-    , turn(0), p1(0), p2(0)
+FFiveGame::FFiveGame(const QString& playerName1, QStackedWidget* parent)
+    : Game(parent), ui(new Ui_FFiveGame()), n_moves(0)
+    , turn(0), p1(0), p2(0), stack(parent)
 {
     ui->setupUi(this);
 
@@ -42,15 +42,16 @@ FFiveGame::FFiveGame(const QString& playerName1, QWidget* parent)
     board.push_back(ui->pushButton24);
     board.push_back(ui->pushButton25);
 
-    // Connecting restart game button
+    // Connecting restart & home buttons
     connect(ui->restartButton, &QPushButton::clicked, this, &FFiveGame::reset_game);
+    connect(ui->homeButton, &QPushButton::clicked, this, &FFiveGame::onHomeButton);
 
     // Get the first move
     players[turn]->get_move();
 }
 
 // For human player
-FFiveGame::FFiveGame(const QString& playerName1, const QString& playerName2, QWidget* parent)
+FFiveGame::FFiveGame(const QString& playerName1, const QString& playerName2, QStackedWidget* parent)
     : FFiveGame(playerName1, parent)
 {
     // Delete Random player
@@ -299,6 +300,15 @@ void FFiveGame::update_score_labels()
 {
     ui->player1Score->setText(QString::number(p1));
     ui->player2Score->setText(QString::number(p2));
+}
+
+void FFiveGame::onHomeButton()
+{
+    if (QMessageBox::warning(this, "Go To Home", "This will erase your progress\nAre you sure to exit?",
+        QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+    {
+        stack->setCurrentIndex(0);
+    }
 }
 
 void FFiveGame::onButtonClick(int index)

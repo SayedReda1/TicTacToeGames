@@ -3,7 +3,8 @@
 // -----------------------------
 // ------ Game Blueprint -------
 // -----------------------------
-
+#ifndef _GAME_H
+#define _GAME_H
 class Game : public QWidget
 {
 public:
@@ -74,3 +75,5 @@ public:
 	// Take the next move
 	virtual void get_move() = 0;
 };
+
+#endif

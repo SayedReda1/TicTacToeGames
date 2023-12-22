@@ -34,13 +34,34 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Main\HomeWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pyramid\PyramidComputerPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pyramid\PyramidGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pyramid\PyramidPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Connect4\Connect4ComputerPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Connect4\Connect4Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Connect4\Connect4Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Connect4\Connect4ComputerPlayer.cpp">
+    <ClCompile Include="src\5x5\FFiveComputerPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\5x5\FFiveGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\5x5\FFivePlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,14 +74,32 @@
     <ClInclude Include="src\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Main\HomeWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="forms\HomeWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="forms\PyramidGame.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="forms\5x5Game.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtUic Include="forms\Connect4.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="src\Pyramid\PyramidGame.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <QtMoc Include="src\Connect4\Connect4Game.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\5x5\FFiveGame.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
