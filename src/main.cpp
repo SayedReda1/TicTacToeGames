@@ -7,6 +7,7 @@
 #include "Main/HomeWindow.h"
 #include <QStackedWidget>
 #include <QApplication>
+#include <QPropertyAnimation>
 
 int main(int argc, char *argv[])
 {
@@ -16,9 +17,8 @@ int main(int argc, char *argv[])
 
     stack.setStyleSheet("background-color: #0F0F0F; ");
     stack.insertWidget(0, new HomeWindow(&stack));
-    stack.setCurrentIndex(0);
-
     stack.show();
+
 
     return a.exec();
 }

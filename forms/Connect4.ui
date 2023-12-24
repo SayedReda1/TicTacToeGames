@@ -193,6 +193,9 @@ QFrame &gt; QWidget {
           <height>25</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Add</string>
         </property>
@@ -222,6 +225,9 @@ QFrame &gt; QWidget {
           <height>25</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Add</string>
         </property>
@@ -250,6 +256,9 @@ QFrame &gt; QWidget {
           <width>100</width>
           <height>25</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
          <string>Add</string>
@@ -301,6 +310,9 @@ QFrame &gt; QWidget {
           <width>100</width>
           <height>25</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="styleSheet">
          <string notr="true"/>
@@ -355,6 +367,9 @@ QFrame &gt; QWidget {
           <width>100</width>
           <height>25</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
          <string>Add</string>
@@ -451,6 +466,9 @@ QFrame &gt; QWidget {
           <height>25</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Add</string>
         </property>
@@ -479,6 +497,9 @@ QFrame &gt; QWidget {
           <width>100</width>
           <height>25</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
          <string>Add</string>
@@ -1272,6 +1293,9 @@ QFrame &gt; QWidget {
        <height>50</height>
       </size>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="styleSheet">
       <string notr="true">QPushButton:hover
 {
@@ -1329,6 +1353,9 @@ QFrame &gt; QWidget {
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton:hover

@@ -1,6 +1,7 @@
 #pragma once
 #include "ui_HomeWindow.h"
 #include <QStackedWidget>
+#include <QStatusBar>
 
 class HomeWindow : public QWidget
 {
@@ -12,6 +13,8 @@ public:
 	
 public slots:
 	void onGoButton();
+	void onGameChange();
+	void onModeChange();
 
 private:
 	Ui_Home* ui;

@@ -9,8 +9,8 @@ Connect4Game::Connect4Game(const QString& playerName1, QStackedWidget* parent)
     ui->setupUi(this);
 
     // Take the two players
-    this->players[0] = new Connect4Player(this, 'X', playerName1, QColor(0, 0, 170));
-    this->players[1] = new Connect4Player(this, 'O');
+    this->players[0] = new Connect4Player(this, 'X', playerName1.isEmpty() ? "Unkown Player" : playerName1, QColor(0, 0, 170));
+    this->players[1] = new Connect4ComputerPlayer(this, 'O');
 
     // Show Names
     ui->player1Label->setText(players[0]->get_name());
@@ -48,7 +48,7 @@ Connect4Game::Connect4Game(const QString& playerName1, const QString& playerName
     : Connect4Game(playerName1, parent)
 {
     delete this->players[1];
-    this->players[1] = new Connect4Player(this, 'O', playerName2, QColor(170, 0, 0));
+    this->players[1] = new Connect4Player(this, 'O', playerName2.isEmpty() ? "Unkown Player" : playerName2, QColor(170, 0, 0));
 
     // Retype the name
     ui->player2Label->setText(players[1]->get_name());
@@ -56,6 +56,8 @@ Connect4Game::Connect4Game(const QString& playerName1, const QString& playerName
 
 Connect4Game::~Connect4Game()
 {
+    delete players[0];
+    delete players[1];
     delete ui;
 }
 

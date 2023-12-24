@@ -10,9 +10,13 @@ HomeWindow::HomeWindow(QStackedWidget* parent)
 	, stack(parent)
 {
 	ui->setupUi(this);
-	reset_window();
 
+	connect(ui->gameCombo, &QComboBox::activated, this, &HomeWindow::onGameChange);
+	connect(ui->modeCombo, &QComboBox::activated, this, &HomeWindow::onModeChange);
 	connect(ui->goButton, &QPushButton::clicked, this, &HomeWindow::onGoButton);
+
+	// reset window
+	reset_window();
 }
 
 HomeWindow::~HomeWindow()
@@ -25,10 +29,19 @@ void HomeWindow::reset_window()
 	// Combo boxes
 	ui->gameCombo->setCurrentIndex(-1);
 	ui->modeCombo->setCurrentIndex(-1);
+	ui->modeCombo->setDisabled(true);
 
 	// Players
 	ui->player1Line->clear();
 	ui->player2Line->clear();
+
+	// Hide Player 2
+	ui->vsIcon->hide();
+	ui->player1Line->hide();
+	ui->player2Line->hide();
+
+	// Go Button
+	ui->goButton->setDisabled(true);
 }
 
 void HomeWindow::onGoButton()
@@ -63,7 +76,7 @@ void HomeWindow::onGoButton()
 		}
 		else if (mode == "Vs Computer")
 		{
-			chosen_game = new FFiveGame(ui->player1Line->text(), ui->player2Line->text(), stack);
+			chosen_game = new FFiveGame(ui->player1Line->text(), stack);
 		}
 	}
 	else if (game == "Connect4")
@@ -81,4 +94,33 @@ void HomeWindow::onGoButton()
 	stack->setCurrentIndex(1);
 
 	reset_window();
+}
+
+void HomeWindow::onGameChange()
+{
+	if (ui->gameCombo->currentIndex() >= 0)
+	{
+		ui->modeCombo->setDisabled(false);
+	}
+}
+
+void HomeWindow::onModeChange()
+{
+	if (ui->modeCombo->currentIndex() >= 0)
+	{
+		ui->player1Line->show();
+		ui->goButton->setDisabled(false);
+
+		// Show the other one
+		if (ui->modeCombo->currentText() == "PvP")
+		{
+			ui->player2Line->show();
+			ui->vsIcon->show();
+		}
+		else
+		{
+			ui->player2Line->hide();
+			ui->vsIcon->hide();
+		}
+	}
 }

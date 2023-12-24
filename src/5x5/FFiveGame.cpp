@@ -8,7 +8,7 @@ FFiveGame::FFiveGame(const QString& playerName1, QStackedWidget* parent)
     ui->setupUi(this);
 
     // Take the two players
-    this->players[0] = new FFivePlayer(this, 'X', playerName1, QColor(0, 0, 170));
+    this->players[0] = new FFivePlayer(this, 'X', playerName1.isEmpty() ? "Unkown Player" : playerName1 , QColor(0, 0, 170));
     this->players[1] = new FFiveComputerPlayer(this, 'O');
 
     // Show Names
@@ -58,7 +58,7 @@ FFiveGame::FFiveGame(const QString& playerName1, const QString& playerName2, QSt
     delete this->players[1];
 
     // Create new player
-    this->players[1] = new FFivePlayer(this, 'O', playerName2, QColor(170, 0, 0));
+    this->players[1] = new FFivePlayer(this, 'O', playerName2.isEmpty() ? "Unkown Player" : playerName2, QColor(170, 0, 0));
 
     // Update the label
     ui->player2Label->setText(players[1]->get_name());
@@ -66,6 +66,8 @@ FFiveGame::FFiveGame(const QString& playerName1, const QString& playerName2, QSt
 
 FFiveGame::~FFiveGame()
 {
+    delete players[0];
+    delete players[1];
     delete ui;
 }
 
