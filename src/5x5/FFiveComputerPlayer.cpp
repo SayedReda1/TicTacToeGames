@@ -2,36 +2,36 @@
 #include <random>
 
 FFiveComputerPlayer::FFiveComputerPlayer(Game* game, QChar symbol)
-	: game(game), symbol(symbol), name("Random Player")
+	: game(game), symbol(symbol), name("Computer Player")
 {
 }
 
 FFiveComputerPlayer::FFiveComputerPlayer(Game* game, QChar symbol, const QColor& color)
-	: game(game), name("Random Player"), color(color), symbol(symbol)
+	: game(game), name("Computer Player"), color(color), symbol(symbol)
 {
 }
 
-QChar FFiveComputerPlayer::get_symbol()
+QChar FFiveComputerPlayer::getSymbol()
 {
     return symbol;
 }
 
-QColor FFiveComputerPlayer::get_color()
+QColor FFiveComputerPlayer::getColor()
 {
     return color;
 }
 
-QString FFiveComputerPlayer::get_name()
+QString FFiveComputerPlayer::getName()
 {
     return name;
 }
 
-void FFiveComputerPlayer::get_move()
+void FFiveComputerPlayer::getMove()
 {
     srand(time(nullptr));
     int index = rand() % 25;
 
-    while (!game->update_board(symbol, index))
+    while (!game->updateBoard(symbol, index))
     {
         index = rand() % 25;
     }

@@ -10,22 +10,22 @@ Connect4Player::Connect4Player(Game* game, QChar symbol, const QString& name, co
 {
 }
 
-QChar Connect4Player::get_symbol()
+QChar Connect4Player::getSymbol()
 {
 	return symbol;
 }
 
-QColor Connect4Player::get_color()
+QColor Connect4Player::getColor()
 {
 	return color;
 }
 
-QString Connect4Player::get_name()
+QString Connect4Player::getName()
 {
 	return name;
 }
 
-void Connect4Player::get_move()
+void Connect4Player::getMove()
 {
-	game->connect_buttons();
+	game->connectButtons();
 }

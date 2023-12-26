@@ -10,22 +10,22 @@ FFivePlayer::FFivePlayer(Game* game, QChar symbol, const QString& name, const QC
 {
 }
 
-QChar FFivePlayer::get_symbol()
+QChar FFivePlayer::getSymbol()
 {
 	return symbol;
 }
 
-QColor FFivePlayer::get_color()
+QColor FFivePlayer::getColor()
 {
 	return color;
 }
 
-QString FFivePlayer::get_name()
+QString FFivePlayer::getName()
 {
 	return name;
 }
 
-void FFivePlayer::get_move()
+void FFivePlayer::getMove()
 {
-	game->connect_buttons();
+	game->connectButtons();
 }

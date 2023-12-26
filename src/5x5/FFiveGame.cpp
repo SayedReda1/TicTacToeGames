@@ -1,5 +1,6 @@
 #include "5x5/FFiveGame.h"
 #include <QMessageBox>
+#include <Windows.h>
 
 FFiveGame::FFiveGame(const QString& playerName1, QStackedWidget* parent)
     : Game(parent), ui(new Ui_FFiveGame()), n_moves(0)
@@ -12,8 +13,8 @@ FFiveGame::FFiveGame(const QString& playerName1, QStackedWidget* parent)
     this->players[1] = new FFiveComputerPlayer(this, 'O');
 
     // Show Names
-    ui->player1Label->setText(players[0]->get_name());
-    ui->player2Label->setText(players[1]->get_name());
+    ui->player1Label->setText(players[0]->getName());
+    ui->player2Label->setText(players[1]->getName());
 
     // Fill the board
     board.push_back(ui->pushButton1);
@@ -43,11 +44,11 @@ FFiveGame::FFiveGame(const QString& playerName1, QStackedWidget* parent)
     board.push_back(ui->pushButton25);
 
     // Connecting restart & home buttons
-    connect(ui->restartButton, &QPushButton::clicked, this, &FFiveGame::reset_game);
+    connect(ui->restartButton, &QPushButton::clicked, this, &FFiveGame::resetGame);
     connect(ui->homeButton, &QPushButton::clicked, this, &FFiveGame::onHomeButton);
 
     // Get the first move
-    players[turn]->get_move();
+    players[turn]->getMove();
 }
 
 // For human player
@@ -61,7 +62,7 @@ FFiveGame::FFiveGame(const QString& playerName1, const QString& playerName2, QSt
     this->players[1] = new FFivePlayer(this, 'O', playerName2.isEmpty() ? "Unkown Player" : playerName2, QColor(170, 0, 0));
 
     // Update the label
-    ui->player2Label->setText(players[1]->get_name());
+    ui->player2Label->setText(players[1]->getName());
 }
 
 FFiveGame::~FFiveGame()
@@ -71,7 +72,7 @@ FFiveGame::~FFiveGame()
     delete ui;
 }
 
-bool FFiveGame::is_winner()
+bool FFiveGame::isWinner()
 {
     int x_score{0}, o_score{0};
     
@@ -127,7 +128,7 @@ bool FFiveGame::is_winner()
     p2 = o_score;
 
     // Update scores on screen
-    update_score_labels();
+    updateScoreLabels();
 
     if (n_moves == 24 && (x_score > o_score || o_score > x_score))
     {
@@ -138,20 +139,20 @@ bool FFiveGame::is_winner()
 }
 
 
-bool FFiveGame::is_draw()
+bool FFiveGame::isDraw()
 {
-    return n_moves == 24 && !is_winner();
+    return n_moves == 24 && !isWinner();
 }
 
-void FFiveGame::show_status(bool win)
+void FFiveGame::showStatus(bool win)
 {
     if (win)
-        QMessageBox::question(this, "Win", "Player: " + players[turn]->get_name() + " WINS", QMessageBox::Ok);
+        QMessageBox::question(this, "Win", "Player: " + players[turn]->getName() + " WINS", QMessageBox::Ok);
     else
         QMessageBox::question(this, "Draw", "It's a draw", QMessageBox::Ok);
 }
 
-void FFiveGame::reset_game()
+void FFiveGame::resetGame()
 {
     if (QMessageBox::warning(this, "Reset", "Are you sure to reset the game?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
     {
@@ -163,11 +164,11 @@ void FFiveGame::reset_game()
         }
 
         // Disconnecting all buttons
-        disconnect_buttons();
+        disconnectButtons();
 
         // Scores
         p1 = p2 = 0;
-        update_score_labels();
+        updateScoreLabels();
 
         // Moves
         n_moves = 0;
@@ -176,13 +177,13 @@ void FFiveGame::reset_game()
         turn = false;
 
         // PyramidPlayer 1 move
-        players[turn]->get_move();
+        players[turn]->getMove();
     }
 }
 
-void FFiveGame::end_game()
+void FFiveGame::endGame()
 {
-    disconnect_buttons();
+    disconnectButtons();
 
     for (auto& button : board)
     {
@@ -190,13 +191,13 @@ void FFiveGame::end_game()
     }
 }
 
-void FFiveGame::next_player_move()
+void FFiveGame::nextPlayerMove()
 {
     turn = !turn;
-    players[turn]->get_move();
+    players[turn]->getMove();
 }
 
-bool FFiveGame::update_board(QChar symbol, int index)
+bool FFiveGame::updateBoard(QChar symbol, int index)
 {
     if (board[index]->text().isEmpty())
     {
@@ -208,12 +209,12 @@ bool FFiveGame::update_board(QChar symbol, int index)
     return false;
 }
 
-bool FFiveGame::get_turn()
+bool FFiveGame::getTurn()
 {
     return turn;
 }
 
-QVector<QVector<QChar>> FFiveGame::get_board()
+QVector<QVector<QChar>> FFiveGame::getBoard()
 {
     QVector<QVector<QChar>> ans;
 
@@ -230,7 +231,7 @@ QVector<QVector<QChar>> FFiveGame::get_board()
     return ans;
 }
 
-bool FFiveGame::increment_moves()
+bool FFiveGame::incrementMoves()
 {
     if (n_moves < 24)
     {
@@ -240,7 +241,7 @@ bool FFiveGame::increment_moves()
     return false;
 }
 
-void FFiveGame::connect_buttons()
+void FFiveGame::connectButtons()
 {
     connect(board[0], &QPushButton::clicked, this, [&]() { onButtonClick(0); });
     connect(board[1], &QPushButton::clicked, this, [&]() { onButtonClick(1); });
@@ -269,7 +270,7 @@ void FFiveGame::connect_buttons()
     connect(board[24], &QPushButton::clicked, this, [&]() { onButtonClick(24); });
 }
 
-void FFiveGame::disconnect_buttons()
+void FFiveGame::disconnectButtons()
 {
     disconnect(board[0], &QPushButton::clicked, 0, 0);
     disconnect(board[1], &QPushButton::clicked, 0, 0);
@@ -298,7 +299,7 @@ void FFiveGame::disconnect_buttons()
     disconnect(board[24], &QPushButton::clicked, 0, 0);
 }
 
-void FFiveGame::update_score_labels()
+void FFiveGame::updateScoreLabels()
 {
     ui->player1Score->setText(QString::number(p1));
     ui->player2Score->setText(QString::number(p2));
@@ -315,25 +316,25 @@ void FFiveGame::onHomeButton()
 
 void FFiveGame::onButtonClick(int index)
 {
+    PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
+    updateBoard(players[turn]->getSymbol(), index);
 
-    update_board(players[turn]->get_symbol(), index);
-
-    if (is_winner())
+    if (isWinner())
     {
-        show_status(true);
-        end_game();
+        showStatus(true);
+        endGame();
         return;
     }
-    else if (is_draw())
+    else if (isDraw())
     {
-        show_status(false);
-        end_game();
+        showStatus(false);
+        endGame();
         return;
     }
 
     // Disconnect all buttons
-    disconnect_buttons();
+    disconnectButtons();
 
     // Next Player's turn
-    next_player_move();
+    nextPlayerMove();
 }

@@ -115,7 +115,7 @@ QPushButton:pressed {
 
 /* Text Edits */
 QLineEdit {
-	color: white;
+	color: rgb(180, 180, 180);
 	padding-left: 20px;
 	border-radius: 5px;
 }
@@ -131,7 +131,7 @@ QLineEdit::focus {
 
 /* Combo Box */
 QComboBox {
-	color:  rgb(135, 135, 135);
+	color:  rgb(120, 120, 120);
 	padding-left: 20px;
 	boarder: none;
 	border-radius: 5px;
@@ -236,6 +236,9 @@ font: 700 14pt &quot;Calibri&quot;;</string>
           <pointsize>12</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="placeholderText">
          <string>Choose Game</string>
         </property>
@@ -290,6 +293,12 @@ font: 700 14pt &quot;Calibri&quot;;</string>
         <property name="minimumSize">
          <size>
           <width>0</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
           <height>1</height>
          </size>
         </property>

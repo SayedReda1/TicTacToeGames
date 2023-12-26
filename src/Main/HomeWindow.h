@@ -1,7 +1,7 @@
 #pragma once
 #include "ui_HomeWindow.h"
 #include <QStackedWidget>
-#include <QStatusBar>
+
 
 class HomeWindow : public QWidget
 {
@@ -9,8 +9,12 @@ public:
 	HomeWindow(QStackedWidget* parent = nullptr);
 	~HomeWindow();
 
-	void reset_window();
+	void resetWindow();
 	
+	// Disablers
+	void enable(QWidget*);
+	void disable(QWidget*, const QString&);
+
 public slots:
 	void onGoButton();
 	void onGameChange();

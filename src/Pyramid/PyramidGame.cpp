@@ -3,6 +3,7 @@
 
 #include "PyramidGame.h"
 #include <QMessageBox>
+#include <Windows.h>
 
 
 PyramidGame::PyramidGame(const QString& playerName1, QStackedWidget* parent)
@@ -16,8 +17,8 @@ PyramidGame::PyramidGame(const QString& playerName1, QStackedWidget* parent)
     this->players[1] = new PyramidComputerPlayer(this, 'O');
 
     // Show Names
-    ui->player1Label->setText(players[0]->get_name());
-    ui->player2Label->setText(players[1]->get_name());
+    ui->player1Label->setText(players[0]->getName());
+    ui->player2Label->setText(players[1]->getName());
 
     // Fill the board
     board.push_back(ui->pushButton);
@@ -30,11 +31,11 @@ PyramidGame::PyramidGame(const QString& playerName1, QStackedWidget* parent)
     board.push_back(ui->pushButton8);
     board.push_back(ui->pushButton9);
 
-    connect(ui->restartButton, &QPushButton::clicked, this, &PyramidGame::reset_game);
+    connect(ui->restartButton, &QPushButton::clicked, this, &PyramidGame::resetGame);
     connect(ui->homeButton, &QPushButton::clicked, this, &PyramidGame::onHomeButton);
 
     // Get the first move
-    players[turn]->get_move();
+    players[turn]->getMove();
 }
 
 PyramidGame::PyramidGame(const QString& playerName1, const QString& playerName2, QStackedWidget* parent)
@@ -44,7 +45,7 @@ PyramidGame::PyramidGame(const QString& playerName1, const QString& playerName2,
     this->players[1] = new PyramidPlayer(this, 'O', playerName2.isEmpty() ? "Unkown Player" : playerName2, QColor(170, 0, 0));
     
     // Retype the name
-    ui->player2Label->setText(players[1]->get_name());
+    ui->player2Label->setText(players[1]->getName());
 }
 
 PyramidGame::~PyramidGame()
@@ -54,7 +55,7 @@ PyramidGame::~PyramidGame()
     delete ui;
 }
 
-bool PyramidGame::is_winner()
+bool PyramidGame::isWinner()
 { 
     bool found_winner = false;
 
@@ -71,7 +72,7 @@ bool PyramidGame::is_winner()
 
         if (found_winner)
         {
-            color_cells({ board[x], board[y], board[z] }, "background-color: #65B741;");
+            colorCells({ board[x], board[y], board[z] }, "background-color: #65B741;");
             return found_winner;
         }
     }
@@ -79,12 +80,12 @@ bool PyramidGame::is_winner()
     return found_winner;
 }
 
-bool PyramidGame::is_draw()
+bool PyramidGame::isDraw()
 {
-    return n_moves == 9 && !is_winner();
+    return n_moves == 9 && !isWinner();
 }
 
-bool PyramidGame::update_board(QChar symbol, int index)
+bool PyramidGame::updateBoard(QChar symbol, int index)
 {
     if (board[index]->text().isEmpty())
     {
@@ -96,12 +97,12 @@ bool PyramidGame::update_board(QChar symbol, int index)
     return false;
 }
 
-bool PyramidGame::get_turn()
+bool PyramidGame::getTurn()
 {
     return turn;
 }
 
-QVector<QVector<QChar>> PyramidGame::get_board()
+QVector<QVector<QChar>> PyramidGame::getBoard()
 {
     QVector<QVector<QChar>> arr;
     arr.push_back({});
@@ -119,7 +120,7 @@ QVector<QVector<QChar>> PyramidGame::get_board()
     return arr;
 }
 
-bool PyramidGame::increment_moves()
+bool PyramidGame::incrementMoves()
 {
     if (n_moves < 9)
     {
@@ -129,7 +130,7 @@ bool PyramidGame::increment_moves()
     return false;
 }
 
-void PyramidGame::color_cells(const QVector<QPushButton*>& buttons, const QString& qss)
+void PyramidGame::colorCells(const QVector<QPushButton*>& buttons, const QString& qss)
 {
     for (auto& button : buttons)
     {
@@ -137,15 +138,15 @@ void PyramidGame::color_cells(const QVector<QPushButton*>& buttons, const QStrin
     }
 }
 
-void PyramidGame::show_status(bool win)
+void PyramidGame::showStatus(bool win)
 {
     if (win)
-        QMessageBox::question(this, "Win", "Player: " + players[turn]->get_name() + " WINS", QMessageBox::Ok);
+        QMessageBox::question(this, "Win", "Player: " + players[turn]->getName() + " WINS", QMessageBox::Ok);
     else
         QMessageBox::question(this, "Draw", "It's a draw", QMessageBox::Ok);
 }
 
-void PyramidGame::reset_game()
+void PyramidGame::resetGame()
 {
     if (QMessageBox::warning(this, "Reset", "Are you sure to reset the game?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
     {
@@ -158,7 +159,7 @@ void PyramidGame::reset_game()
         }
 
         // Disconnecting all buttons
-        disconnect_buttons();
+        disconnectButtons();
 
         // Moves
         n_moves = 0;
@@ -167,13 +168,13 @@ void PyramidGame::reset_game()
         turn = false;
 
         // PyramidPlayer 1 move
-        players[turn]->get_move();
+        players[turn]->getMove();
     }
 }
 
-void PyramidGame::end_game()
+void PyramidGame::endGame()
 {
-    disconnect_buttons();
+    disconnectButtons();
 
     // Disable all buttons
     for (int i = 0; i < 9; ++i)
@@ -182,13 +183,13 @@ void PyramidGame::end_game()
     }
 }
 
-void PyramidGame::next_player_move()
+void PyramidGame::nextPlayerMove()
 {
     turn = !turn;
-    players[turn]->get_move();
+    players[turn]->getMove();
 }
 
-void PyramidGame::connect_buttons()
+void PyramidGame::connectButtons()
 {
     connect(board[0], &QPushButton::clicked, this, [&]() { onButtonClick(0); });
     connect(board[1], &QPushButton::clicked, this, [&]() { onButtonClick(1); });
@@ -201,7 +202,7 @@ void PyramidGame::connect_buttons()
     connect(board[8], &QPushButton::clicked, this, [&]() { onButtonClick(8); });
 }
 
-void PyramidGame::disconnect_buttons()
+void PyramidGame::disconnectButtons()
 {
     disconnect(board[0], &QPushButton::clicked, 0, 0);
     disconnect(board[1], &QPushButton::clicked, 0, 0);
@@ -226,23 +227,25 @@ void PyramidGame::onHomeButton()
 
 void PyramidGame::onButtonClick(int index)
 {
-    update_board(players[turn]->get_symbol(), index);
+    PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
 
-    if (is_winner())
+    updateBoard(players[turn]->getSymbol(), index);
+
+    if (isWinner())
     {
-        show_status(true);
-        end_game();
+        showStatus(true);
+        endGame();
         return;
     }
-    else if (is_draw())
+    else if (isDraw())
     {
-        show_status(false);
-        end_game();
+        showStatus(false);
+        endGame();
         return;
     }
 
     // Disconnect all buttons
-    disconnect_buttons();
+    disconnectButtons();
 
-    next_player_move();
+    nextPlayerMove();
 }

@@ -18,52 +18,52 @@ public:
 
     // Always returns false unless it's 24 moves
     // and one player has more score
-    bool is_winner();
+    bool isWinner();
 
     // Always returns false unless it's 24 moves
     // and both players have same score
-    bool is_draw();
+    bool isDraw();
 
     // Shows a winning message when true is passed
     // Shows a draw message when false is passed
     // checks p1 & p2 then shows a message
-    void show_status(bool);
+    void showStatus(bool);
 
     // Resets the game and all buttons and labels
-    void reset_game();
+    void resetGame();
 
     // Ends the game by disabling all buttons & disconnecting them
-    void end_game();
+    void endGame();
 
     // Prepares for the next player move
-    void next_player_move();
+    void nextPlayerMove();
 
 
     // ------------ Gui Modifiers ---------------
 
     // Updates the board at the given index with a specific value
-    bool update_board(QChar, int);
+    bool updateBoard(QChar, int);
 
     // Highlights the winners moves at the end of the game
     //void highlight_wins(QChar winner_symbol);
 
     // Returns the current player's turn
-    bool get_turn();
+    bool getTurn();
 
     // Returns the board in a 2d arrays of Qt characters
-    QVector<QVector<QChar>> get_board();
+    QVector<QVector<QChar>> getBoard();
 
     // Increments n_moves variable & returns if possible increment
-    bool increment_moves();
+    bool incrementMoves();
 
     // Connects all button to the appropriate slots for the next player
-    void connect_buttons();
+    void connectButtons();
 
     // Resets all buttons slot connections
-    void disconnect_buttons();
+    void disconnectButtons();
 
     // Updates the players counter labels
-    void update_score_labels();
+    void updateScoreLabels();
 
 public slots:
     void onButtonClick(int index);
@@ -86,12 +86,12 @@ public:
     FFivePlayer(Game* game, QChar symbol);
     FFivePlayer(Game* game, QChar symbol, const QString& name, const QColor& color);
 
-    QChar get_symbol();
-    QColor get_color();
-    QString get_name();
+    QChar getSymbol();
+    QColor getColor();
+    QString getName();
     // Reconnects the free buttons to suit the next player
     // Different in PyramidComputerPlayer
-    void get_move();
+    void getMove();
 
 private:
     Game* game;
@@ -107,22 +107,12 @@ public:
     FFiveComputerPlayer(Game* game, QChar symbol);
     FFiveComputerPlayer(Game* game, QChar symbol, const QColor& color);
 
-    QChar get_symbol();
-    QColor get_color();
-    QString get_name();
+    QChar getSymbol();
+    QColor getColor();
+    QString getName();
 
     // use the algorithm to choose a position and use it
-    void get_move();
-
-    // Minimax function
-    //int minimax(QVector<QChar>& board, bool isMaximizing);
-
-    // Check for a winner
-    // 10 -> PyramidComputerPlayer wins
-    // -10 -> Opponent wins
-    // 0 -> draw
-    // 1 -> non of the above
-    //int check_winner(QVector<QChar>& board);
+    void getMove();
 
 private:
     Game* game;

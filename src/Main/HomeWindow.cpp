@@ -1,4 +1,5 @@
 #include "HomeWindow.h"
+#include <Windows.h>
 #include "Pyramid/PyramidGame.h"
 #include "5x5/FFiveGame.h"
 #include "Connect4/Connect4Game.h"
@@ -16,7 +17,7 @@ HomeWindow::HomeWindow(QStackedWidget* parent)
 	connect(ui->goButton, &QPushButton::clicked, this, &HomeWindow::onGoButton);
 
 	// reset window
-	reset_window();
+	resetWindow();
 }
 
 HomeWindow::~HomeWindow()
@@ -24,28 +25,40 @@ HomeWindow::~HomeWindow()
 	delete ui;
 }
 
-void HomeWindow::reset_window()
+void HomeWindow::resetWindow()
 {
 	// Combo boxes
 	ui->gameCombo->setCurrentIndex(-1);
 	ui->modeCombo->setCurrentIndex(-1);
-	ui->modeCombo->setDisabled(true);
 
 	// Players
 	ui->player1Line->clear();
 	ui->player2Line->clear();
 
-	// Hide Player 2
-	ui->vsIcon->hide();
-	ui->player1Line->hide();
-	ui->player2Line->hide();
-
-	// Go Button
-	ui->goButton->setDisabled(true);
+	// Disabling fields
+	disable(ui->modeCombo, "background-color: rgb(24, 31, 43);" );
+	disable(ui->player1Line, "background-color: rgb(24, 31, 43);");
+	disable(ui->player2Line, "background-color: rgb(24, 31, 43);");
+	disable(ui->goButton, "background-color: rgb(24, 31, 43);");
 }
 
+void HomeWindow::enable(QWidget* widget)
+{
+	widget->setDisabled(false);
+	widget->setStyleSheet("");
+}
+
+void HomeWindow::disable(QWidget* widget, const QString& style)
+{
+	widget->setDisabled(true);
+	widget->setStyleSheet(style);
+}
+
+
+////////////// SLOTS //////////////////
 void HomeWindow::onGoButton()
 {
+	PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
 	QString game = ui->gameCombo->currentText();
 	QString mode = ui->modeCombo->currentText();
 
@@ -93,14 +106,14 @@ void HomeWindow::onGoButton()
 	stack->insertWidget(1, chosen_game);
 	stack->setCurrentIndex(1);
 
-	reset_window();
+	resetWindow();
 }
 
 void HomeWindow::onGameChange()
 {
 	if (ui->gameCombo->currentIndex() >= 0)
 	{
-		ui->modeCombo->setDisabled(false);
+		enable(ui->modeCombo);
 	}
 }
 
@@ -108,19 +121,25 @@ void HomeWindow::onModeChange()
 {
 	if (ui->modeCombo->currentIndex() >= 0)
 	{
-		ui->player1Line->show();
-		ui->goButton->setDisabled(false);
+		enable(ui->player1Line);
+		enable(ui->goButton);
 
 		// Show the other one
 		if (ui->modeCombo->currentText() == "PvP")
 		{
-			ui->player2Line->show();
-			ui->vsIcon->show();
+			ui->player2Line->clear();
+			enable(ui->player2Line);
 		}
 		else
 		{
-			ui->player2Line->hide();
-			ui->vsIcon->hide();
+			ui->player2Line->setText("Computer Player");
+			disable(ui->player2Line, "background-color: rgb(24, 31, 43);");
 		}
+	}
+	else
+	{
+		disable(ui->player1Line, "background-color: rgb(24, 31, 43);");
+		disable(ui->player2Line, "background-color: rgb(24, 31, 43);");
+		disable(ui->goButton, "background-color: rgb(24, 31, 43);");
 	}
 }

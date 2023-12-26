@@ -14,22 +14,22 @@ PyramidPlayer::PyramidPlayer(Game* game, QChar symbol, const QString& name, cons
 {
 }
 
-QChar PyramidPlayer::get_symbol()
+QChar PyramidPlayer::getSymbol()
 {
 	return symbol;
 }
 
-QColor PyramidPlayer::get_color()
+QColor PyramidPlayer::getColor()
 {
 	return color;
 }
 
-QString PyramidPlayer::get_name()
+QString PyramidPlayer::getName()
 {
 	return name;
 }
 
-void PyramidPlayer::get_move()
+void PyramidPlayer::getMove()
 {
-	game->connect_buttons();
+	game->connectButtons();
 }

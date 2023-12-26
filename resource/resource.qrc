@@ -8,7 +8,4 @@
         <file>add.png</file>
         <file>home.png</file>
     </qresource>
-    <qresource prefix="/media">
-        <file>click.wav</file>
-    </qresource>
 </RCC>

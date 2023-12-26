@@ -11,25 +11,25 @@ PyramidComputerPlayer::PyramidComputerPlayer(Game* game, QChar symbol, const QCo
 {
 }
 
-QChar PyramidComputerPlayer::get_symbol()
+QChar PyramidComputerPlayer::getSymbol()
 {
     return symbol;
 }
 
-QColor PyramidComputerPlayer::get_color()
+QColor PyramidComputerPlayer::getColor()
 {
     return color;
 }
 
-QString PyramidComputerPlayer::get_name()
+QString PyramidComputerPlayer::getName()
 {
     return name;
 }
 
-void PyramidComputerPlayer::get_move()
+void PyramidComputerPlayer::getMove()
 {
 	// 1) Try the algo and make a move
-	QVector<QChar> board = game->get_board()[0];
+	QVector<QChar> board = game->getBoard()[0];
 
 	int maxScore = -1000, x = -1;
 	for (int i = 0; i < 9; ++i)
@@ -49,29 +49,29 @@ void PyramidComputerPlayer::get_move()
 			}
 		}
 	}
-	game->update_board(symbol, x);
+	game->updateBoard(symbol, x);
 
 	// 2) Check for a winner
-	if (game->is_winner())
+	if (game->isWinner())
 	{
-		game->show_status(true);
-		game->end_game();
+		game->showStatus(true);
+		game->endGame();
 		return;
 	}
-	else if (game->is_draw())
+	else if (game->isDraw())
 	{
-		game->show_status(false);
-		game->end_game();
+		game->showStatus(false);
+		game->endGame();
 		return;
 	}
 
 	// 3) Next player
-	game->next_player_move();
+	game->nextPlayerMove();
 }
 
 int PyramidComputerPlayer::minimax(QVector<QChar>& board, bool isMaximizing)
 {
-    int check = check_winner(board);
+    int check = this->check(board);
     if (check != 1)
         return check;
 
@@ -117,7 +117,7 @@ int PyramidComputerPlayer::minimax(QVector<QChar>& board, bool isMaximizing)
     }
 }
 
-int PyramidComputerPlayer::check_winner(QVector<QChar>& board)
+int PyramidComputerPlayer::check(QVector<QChar>& board)
 {
 	// 10	-> PyramidComputerPlayer wins
 	// -10	-> Opponent wins

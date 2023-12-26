@@ -23,47 +23,47 @@ public:
     // ------------ Game Functions -------------
 
     // To check if there is a winner
-    bool is_winner();
+    bool isWinner();
 
     // To state if there is a draw()
-    bool is_draw();
+    bool isDraw();
 
     // Shows a winning message passed true
     // Shows a draw message passed false
-    void show_status(bool);
+    void showStatus(bool);
 
     // Resets the game and all buttons and labels
-    void reset_game();
+    void resetGame();
 
     // Ends the game by disabling all buttons & disconnecting them
-    void end_game();
+    void endGame();
 
     // Prepares for the next player move
-    void next_player_move();
+    void nextPlayerMove();
 
 
     // ------------ Gui Modifiers ---------------
 
     // Updates the board at the given index with a specific value
-    bool update_board(QChar, int);
+    bool updateBoard(QChar, int);
 
     // Returns the current player's turn
-    bool get_turn();
+    bool getTurn();
 
     // Returns the board in a 2d arrays of Qt characters
-    QVector<QVector<QChar>> get_board();
+    QVector<QVector<QChar>> getBoard();
 
     // Increments n_moves variable
-    bool increment_moves();
+    bool incrementMoves();
 
     // Color cells
-    void color_cells(const QVector<QPushButton*>&, const QString&);
+    void colorCells(const QVector<QPushButton*>&, const QString&);
 
     // Connects all button to the appropriate slots for the next player
-    void connect_buttons();
+    void connectButtons();
 
     // Resets all buttons slot connections
-    void disconnect_buttons();
+    void disconnectButtons();
 
 public slots:
     void onButtonClick(int index);
@@ -84,12 +84,12 @@ public:
     PyramidPlayer(Game* game, QChar symbol);
     PyramidPlayer(Game* game, QChar symbol, const QString& name, const QColor& color);
 
-    QChar get_symbol();
-    QColor get_color();
-    QString get_name();
+    QChar getSymbol();
+    QColor getColor();
+    QString getName();
     // Reconnects the free buttons to suit the next player
     // Different in PyramidComputerPlayer
-    void get_move();
+    void getMove();
 
 private:
     Game* game;
@@ -105,12 +105,12 @@ public:
     PyramidComputerPlayer(Game* game, QChar symbol);
     PyramidComputerPlayer(Game* game, QChar symbol, const QColor& color);
 
-    QChar get_symbol();
-    QColor get_color();
-    QString get_name();
+    QChar getSymbol();
+    QColor getColor();
+    QString getName();
 
     // use the algorithm to choose a position and use it
-    void get_move();
+    void getMove();
 
     // Minimax function
     int minimax(QVector<QChar>& board, bool isMaximizing);
@@ -120,7 +120,7 @@ public:
     // -10 -> Opponent wins
     // 0 -> draw
     // 1 -> non of the above
-    int check_winner(QVector<QChar>& board);
+    int check(QVector<QChar>& board);
 
 private:
     Game* game;

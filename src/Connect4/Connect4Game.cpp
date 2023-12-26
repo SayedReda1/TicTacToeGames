@@ -1,5 +1,6 @@
 #include "Connect4Game.h"
 #include <QMessageBox>
+#include <Windows.h>
 
 
 Connect4Game::Connect4Game(const QString& playerName1, QStackedWidget* parent)
@@ -13,8 +14,8 @@ Connect4Game::Connect4Game(const QString& playerName1, QStackedWidget* parent)
     this->players[1] = new Connect4ComputerPlayer(this, 'O');
 
     // Show Names
-    ui->player1Label->setText(players[0]->get_name());
-    ui->player2Label->setText(players[1]->get_name());
+    ui->player1Label->setText(players[0]->getName());
+    ui->player2Label->setText(players[1]->getName());
 
     // Fill the stacks vector
     for (int i = 0; i < 7; ++i)
@@ -36,11 +37,11 @@ Connect4Game::Connect4Game(const QString& playerName1, QStackedWidget* parent)
     }
 
     // Restart Button & Home Button
-    connect(ui->restartButton, &QPushButton::clicked, this, &Connect4Game::reset_game);
+    connect(ui->restartButton, &QPushButton::clicked, this, &Connect4Game::resetGame);
     connect(ui->homeButton, &QPushButton::clicked, this, &Connect4Game::onHomeButton);
 
     // Get the first move
-    players[turn]->get_move();
+    players[turn]->getMove();
 }
 
 // PvP
@@ -51,7 +52,7 @@ Connect4Game::Connect4Game(const QString& playerName1, const QString& playerName
     this->players[1] = new Connect4Player(this, 'O', playerName2.isEmpty() ? "Unkown Player" : playerName2, QColor(170, 0, 0));
 
     // Retype the name
-    ui->player2Label->setText(players[1]->get_name());
+    ui->player2Label->setText(players[1]->getName());
 }
 
 Connect4Game::~Connect4Game()
@@ -62,7 +63,7 @@ Connect4Game::~Connect4Game()
 }
 
 
-bool Connect4Game::is_winner()
+bool Connect4Game::isWinner()
 {
     bool found_winner = false;
 
@@ -78,7 +79,7 @@ bool Connect4Game::is_winner()
 
             if (found_winner)
             {
-                color_cells({ stacks[i][j], stacks[i][j + 1], stacks[i][j + 2], stacks[i][j + 3] },
+                colorCells({ stacks[i][j], stacks[i][j + 1], stacks[i][j + 2], stacks[i][j + 3] },
                     "background-color: #65B741;");
                 return true;
             }
@@ -97,7 +98,7 @@ bool Connect4Game::is_winner()
 
             if (found_winner)
             {
-                color_cells({ stacks[i][j], stacks[i+1][j], stacks[i+2][j], stacks[i+3][j] },
+                colorCells({ stacks[i][j], stacks[i+1][j], stacks[i+2][j], stacks[i+3][j] },
                     "background-color: #65B741;");
                 return true;
             }
@@ -117,7 +118,7 @@ bool Connect4Game::is_winner()
 
             if (found_winner)
             {
-                color_cells({ stacks[i][j], stacks[i + 1][i + 1], stacks[i + 2][j + 2], stacks[i + 3][j + 3] },
+                colorCells({ stacks[i][j], stacks[i + 1][i + 1], stacks[i + 2][j + 2], stacks[i + 3][j + 3] },
                     "background-color: #65B741;");
                 return true;
             }
@@ -136,7 +137,7 @@ bool Connect4Game::is_winner()
 
             if (found_winner)
             {
-                color_cells({ stacks[i][j], stacks[i + 1][j - 1], stacks[i + 2][j - 2], stacks[i + 3][j - 3] },
+                colorCells({ stacks[i][j], stacks[i + 1][j - 1], stacks[i + 2][j - 2], stacks[i + 3][j - 3] },
                     "background-color: #65B741;");
                 return true;
             }
@@ -147,12 +148,12 @@ bool Connect4Game::is_winner()
     return found_winner;
 }
 
-bool Connect4Game::is_draw()
+bool Connect4Game::isDraw()
 {
-    return n_moves == 42 && !is_winner();
+    return n_moves == 42 && !isWinner();
 }
 
-bool Connect4Game::update_board(QChar symbol, int index)
+bool Connect4Game::updateBoard(QChar symbol, int index)
 {
     int first_filled = 5;
     while (first_filled >= 0 && stacks[index][first_filled]->text().isEmpty())
@@ -161,7 +162,7 @@ bool Connect4Game::update_board(QChar symbol, int index)
     if (first_filled < 5)
     {
         if (first_filled == 4)      // stack is filled
-            disable_button(index);
+            disableButton(index);
 
         stacks[index][first_filled + 1]->setText(symbol);
         return true;
@@ -169,12 +170,12 @@ bool Connect4Game::update_board(QChar symbol, int index)
     return false;
 }
 
-bool Connect4Game::get_turn()
+bool Connect4Game::getTurn()
 {
     return turn;
 }
 
-QVector<QVector<QChar>> Connect4Game::get_board()
+QVector<QVector<QChar>> Connect4Game::getBoard()
 {
     QVector<QVector<QChar>> arr;
 
@@ -191,7 +192,7 @@ QVector<QVector<QChar>> Connect4Game::get_board()
     return arr;
 }
 
-bool Connect4Game::increment_moves()
+bool Connect4Game::incrementMoves()
 {
     if (n_moves < 42)
     {
@@ -201,7 +202,7 @@ bool Connect4Game::increment_moves()
     return false;
 }
 
-void Connect4Game::color_cells(const QVector<QLabel*>& labels, const QString& qss)
+void Connect4Game::colorCells(const QVector<QLabel*>& labels, const QString& qss)
 {
     for (auto& label : labels)
     {
@@ -209,27 +210,27 @@ void Connect4Game::color_cells(const QVector<QLabel*>& labels, const QString& qs
     }
 }
 
-void Connect4Game::enable_button(int index)
+void Connect4Game::enableButton(int index)
 {
     adders[index]->setEnabled(true);
     adders[index]->setStyleSheet("");
 }
 
-void Connect4Game::disable_button(int index)
+void Connect4Game::disableButton(int index)
 {
     adders[index]->setEnabled(false);
     adders[index]->setStyleSheet("background-color: rgb(27, 35, 49);");
 }
 
-void Connect4Game::show_status(bool win)
+void Connect4Game::showStatus(bool win)
 {
     if (win)
-        QMessageBox::question(this, "Win", "Player: " + players[turn]->get_name() + " WINS", QMessageBox::Ok);
+        QMessageBox::question(this, "Win", "Player: " + players[turn]->getName() + " WINS", QMessageBox::Ok);
     else
         QMessageBox::question(this, "Draw", "It's a draw", QMessageBox::Ok);
 }
 
-void Connect4Game::reset_game()
+void Connect4Game::resetGame()
 {
     if (QMessageBox::warning(this, "Reset", "Are you sure to reset the game?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
     {
@@ -241,11 +242,11 @@ void Connect4Game::reset_game()
                 stacks[i][j]->setText("");
                 stacks[i][j]->setStyleSheet("");
             }
-            enable_button(i);
+            enableButton(i);
         }
 
         // Disconnecting all buttons
-        disconnect_buttons();
+        disconnectButtons();
 
         // Moves
         n_moves = 0;
@@ -254,28 +255,28 @@ void Connect4Game::reset_game()
         turn = false;
 
         // PyramidPlayer 1 move
-        players[turn]->get_move();
+        players[turn]->getMove();
     }
 }
 
-void Connect4Game::end_game()
+void Connect4Game::endGame()
 {
-    disconnect_buttons();
+    disconnectButtons();
 
     // Disable all buttons
     for (int i = 0; i < 7; ++i)
     {
-        disable_button(i);
+        disableButton(i);
     }
 }
 
-void Connect4Game::next_player_move()
+void Connect4Game::nextPlayerMove()
 {
     turn = !turn;
-    players[turn]->get_move();
+    players[turn]->getMove();
 }
 
-void Connect4Game::connect_buttons()
+void Connect4Game::connectButtons()
 {
     connect(adders[0], &QPushButton::clicked, this, [&]() { onButtonClick(0); });
     connect(adders[1], &QPushButton::clicked, this, [&]() { onButtonClick(1); });
@@ -286,7 +287,7 @@ void Connect4Game::connect_buttons()
     connect(adders[6], &QPushButton::clicked, this, [&]() { onButtonClick(6); });
 }
 
-void Connect4Game::disconnect_buttons()
+void Connect4Game::disconnectButtons()
 {
     disconnect(adders[0], &QPushButton::clicked, 0, 0);
     disconnect(adders[1], &QPushButton::clicked, 0, 0);
@@ -308,25 +309,27 @@ void Connect4Game::onHomeButton()
 
 void Connect4Game::onButtonClick(int index)
 {
+    PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
+
     // index < 0, means don't update board
     if (index >= 0)
-        update_board(players[turn]->get_symbol(), index);
+        updateBoard(players[turn]->getSymbol(), index);
     
-    if (is_winner())
+    if (isWinner())
     {
-        show_status(true);
-        end_game();
+        showStatus(true);
+        endGame();
         return;
     }
-    else if (is_draw())
+    else if (isDraw())
     {
-        show_status(false);
-        end_game();
+        showStatus(false);
+        endGame();
         return;
     }
 
     // Disconnect all buttons
-    disconnect_buttons();
+    disconnectButtons();
 
-    next_player_move();
+    nextPlayerMove();
 }
