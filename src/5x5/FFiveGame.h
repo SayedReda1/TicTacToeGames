@@ -12,8 +12,7 @@ class FFiveGame : public Game
     Q_OBJECT
 
 public:
-    FFiveGame(const QString& playerName1, QStackedWidget* parent = nullptr);
-    FFiveGame(const QString& playerName1, const QString& playerName2, QStackedWidget* parent = nullptr);
+    FFiveGame(Player* player1, Player* player2, QStackedWidget* parent = nullptr);
     ~FFiveGame();
 
     // Always returns false unless it's 24 moves
@@ -42,7 +41,7 @@ public:
     // ------------ Gui Modifiers ---------------
 
     // Updates the board at the given index with a specific value
-    bool updateBoard(QChar, int);
+    bool updateBoard(QChar, QColor, int);
 
     // Highlights the winners moves at the end of the game
     //void highlight_wins(QChar winner_symbol);
@@ -83,14 +82,16 @@ private:
 class FFivePlayer : public Player
 {
 public:
-    FFivePlayer(Game* game, QChar symbol);
-    FFivePlayer(Game* game, QChar symbol, const QString& name, const QColor& color);
+    FFivePlayer(QChar symbol);
+    FFivePlayer(QChar symbol, const QString& name, const QColor& color);
 
     QChar getSymbol();
     QColor getColor();
     QString getName();
+    void setGame(Game* game);
+
     // Reconnects the free buttons to suit the next player
-    // Different in PyramidComputerPlayer
+    // Different in PyramidAiPlayer
     void getMove();
 
 private:
@@ -100,16 +101,17 @@ private:
     QColor color;
 };
 
-class FFiveComputerPlayer : public Player
+class FFiveRandomPlayer : public Player
 {
 public:
 
-    FFiveComputerPlayer(Game* game, QChar symbol);
-    FFiveComputerPlayer(Game* game, QChar symbol, const QColor& color);
+    FFiveRandomPlayer(QChar symbol);
+    FFiveRandomPlayer(QChar symbol, const QColor& color);
 
     QChar getSymbol();
     QColor getColor();
     QString getName();
+    void setGame(Game* game);
 
     // use the algorithm to choose a position and use it
     void getMove();

@@ -2,19 +2,25 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 
 #include "PyramidGame.h"
+#include "ResultFrame/ResultFrame.h"
+#include <QTimer>
 #include <QMessageBox>
 #include <Windows.h>
 
 
-PyramidGame::PyramidGame(const QString& playerName1, QStackedWidget* parent)
+PyramidGame::PyramidGame(Player* player1, Player* player2, QStackedWidget* parent)
     : Game(parent), ui(new Ui_PyramidGame), n_moves(0)
     , turn(0), stack(parent)
 {
     ui->setupUi(this);
 
     // Take the two players
-    this->players[0] = new PyramidPlayer(this, 'X', playerName1.isEmpty() ? "Unkown Player" : playerName1, QColor(0, 0, 170));
-    this->players[1] = new PyramidComputerPlayer(this, 'O');
+    this->players[0] = player1;
+    this->players[1] = player2;
+
+    // Pass them the game
+    this->players[0]->setGame(this);
+    this->players[1]->setGame(this);
 
     // Show Names
     ui->player1Label->setText(players[0]->getName());
@@ -36,16 +42,6 @@ PyramidGame::PyramidGame(const QString& playerName1, QStackedWidget* parent)
 
     // Get the first move
     players[turn]->getMove();
-}
-
-PyramidGame::PyramidGame(const QString& playerName1, const QString& playerName2, QStackedWidget* parent)
-    : PyramidGame(playerName1, parent)
-{
-    delete this->players[1];
-    this->players[1] = new PyramidPlayer(this, 'O', playerName2.isEmpty() ? "Unkown Player" : playerName2, QColor(170, 0, 0));
-    
-    // Retype the name
-    ui->player2Label->setText(players[1]->getName());
 }
 
 PyramidGame::~PyramidGame()
@@ -72,7 +68,7 @@ bool PyramidGame::isWinner()
 
         if (found_winner)
         {
-            colorCells({ board[x], board[y], board[z] }, "background-color: #65B741;");
+            styleCells({ board[x], board[y], board[z] }, "background-color: #65B741;");
             return found_winner;
         }
     }
@@ -85,11 +81,12 @@ bool PyramidGame::isDraw()
     return n_moves == 9 && !isWinner();
 }
 
-bool PyramidGame::updateBoard(QChar symbol, int index)
+bool PyramidGame::updateBoard(QChar symbol, QColor color, int index)
 {
     if (board[index]->text().isEmpty())
     {
         board[index]->setText(symbol.toUpper());
+        board[index]->setStyleSheet("color: " + color.name() + ";");
         board[index]->setDisabled(true);
         n_moves++;
         return true;
@@ -130,20 +127,23 @@ bool PyramidGame::incrementMoves()
     return false;
 }
 
-void PyramidGame::colorCells(const QVector<QPushButton*>& buttons, const QString& qss)
+void PyramidGame::styleCells(const QVector<QPushButton*>& buttons, const QString& qss)
 {
     for (auto& button : buttons)
-    {
         button->setStyleSheet(qss);
-    }
 }
 
 void PyramidGame::showStatus(bool win)
 {
     if (win)
-        QMessageBox::question(this, "Win", "Player: " + players[turn]->getName() + " WINS", QMessageBox::Ok);
+    {
+        stack->insertWidget(2, new ResultFrame("Player: " + players[turn]->getName() + " WINS", 1, stack));
+    }
     else
-        QMessageBox::question(this, "Draw", "It's a draw", QMessageBox::Ok);
+    {
+        stack->insertWidget(2, new ResultFrame("TIE!", 0, stack));
+    }
+    stack->setCurrentIndex(2);
 }
 
 void PyramidGame::resetGame()
@@ -227,9 +227,11 @@ void PyramidGame::onHomeButton()
 
 void PyramidGame::onButtonClick(int index)
 {
-    PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
-
-    updateBoard(players[turn]->getSymbol(), index);
+    if (index >= 0)
+    {
+        PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
+        updateBoard(players[turn]->getSymbol(), players[turn]->getColor(), index);
+    }
 
     if (isWinner())
     {

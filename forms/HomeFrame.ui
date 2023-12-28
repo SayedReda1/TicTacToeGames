@@ -82,18 +82,10 @@
        <height>500</height>
       </size>
      </property>
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-       <pointsize>14</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
      <property name="styleSheet">
       <string notr="true">QFrame {
 	background-color: #0F0F0F;
-	border-radius: 5px;
+	border-radius: 20px;
 	font: 14pt &quot;Calibri&quot;;
 }
 
@@ -101,7 +93,7 @@
 QPushButton {
 	color: white;
 	background-color: #232D3F;
-	border-radius: 5px;
+	border-radius: 10px;
 }
 
 QPushButton::hover {
@@ -117,7 +109,7 @@ QPushButton:pressed {
 QLineEdit {
 	color: rgb(180, 180, 180);
 	padding-left: 20px;
-	border-radius: 5px;
+	border-radius: 10px;
 }
 
 QLineEdit::hover {
@@ -134,7 +126,7 @@ QComboBox {
 	color:  rgb(120, 120, 120);
 	padding-left: 20px;
 	boarder: none;
-	border-radius: 5px;
+	border-radius: 10px;
 }
 
 QComboBox::hover {
@@ -216,7 +208,7 @@ padding-left: 20px;
 font: 700 14pt &quot;Calibri&quot;;</string>
           </property>
           <property name="text">
-           <string>Welcom To Our Game</string>
+           <string>Welcom to our Gaming Inventory</string>
           </property>
          </widget>
         </item>
@@ -278,12 +270,12 @@ font: 700 14pt &quot;Calibri&quot;;</string>
         </property>
         <item>
          <property name="text">
-          <string>PvP</string>
+          <string>vs Player</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Vs Computer</string>
+          <string>vs Random</string>
          </property>
         </item>
        </widget>
@@ -383,6 +375,13 @@ font: 700 14pt &quot;Calibri&quot;;</string>
           <width>150</width>
           <height>30</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>

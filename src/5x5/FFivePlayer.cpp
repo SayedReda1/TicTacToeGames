@@ -1,11 +1,11 @@
 #include "FFiveGame.h"
 
-FFivePlayer::FFivePlayer(Game* game, QChar symbol)
+FFivePlayer::FFivePlayer(QChar symbol)
 	: game(game), symbol(symbol.toUpper()), name("Unkown Player")
 {
 }
 
-FFivePlayer::FFivePlayer(Game* game, QChar symbol, const QString& name, const QColor& color)
+FFivePlayer::FFivePlayer(QChar symbol, const QString& name, const QColor& color)
 	: game(game), symbol(symbol), name(name), color(color)
 {
 }
@@ -23,6 +23,11 @@ QColor FFivePlayer::getColor()
 QString FFivePlayer::getName()
 {
 	return name;
+}
+
+void FFivePlayer::setGame(Game* game)
+{
+	this->game = game;
 }
 
 void FFivePlayer::getMove()

@@ -1,17 +1,23 @@
 #include "Connect4Game.h"
+#include "ResultFrame/ResultFrame.h"
+#include <QTimer>
 #include <QMessageBox>
 #include <Windows.h>
 
 
-Connect4Game::Connect4Game(const QString& playerName1, QStackedWidget* parent)
+Connect4Game::Connect4Game(Player* player1, Player* player2, QStackedWidget* parent)
     : Game(parent), ui(new Ui_Connect4Game), n_moves(0)
     , turn(0), stack(parent)
 {
     ui->setupUi(this);
 
     // Take the two players
-    this->players[0] = new Connect4Player(this, 'X', playerName1.isEmpty() ? "Unkown Player" : playerName1, QColor(0, 0, 170));
-    this->players[1] = new Connect4ComputerPlayer(this, 'O');
+    this->players[0] = player1;
+    this->players[1] = player2;
+
+    // Pass them the game
+    this->players[0]->setGame(this);
+    this->players[1]->setGame(this);
 
     // Show Names
     ui->player1Label->setText(players[0]->getName());
@@ -44,17 +50,6 @@ Connect4Game::Connect4Game(const QString& playerName1, QStackedWidget* parent)
     players[turn]->getMove();
 }
 
-// PvP
-Connect4Game::Connect4Game(const QString& playerName1, const QString& playerName2, QStackedWidget* parent)
-    : Connect4Game(playerName1, parent)
-{
-    delete this->players[1];
-    this->players[1] = new Connect4Player(this, 'O', playerName2.isEmpty() ? "Unkown Player" : playerName2, QColor(170, 0, 0));
-
-    // Retype the name
-    ui->player2Label->setText(players[1]->getName());
-}
-
 Connect4Game::~Connect4Game()
 {
     delete players[0];
@@ -68,7 +63,7 @@ bool Connect4Game::isWinner()
     bool found_winner = false;
 
     // Rows
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 7; ++i)
     {
         for (int j = 0; j < 3; ++j)
         {
@@ -79,7 +74,7 @@ bool Connect4Game::isWinner()
 
             if (found_winner)
             {
-                colorCells({ stacks[i][j], stacks[i][j + 1], stacks[i][j + 2], stacks[i][j + 3] },
+                styleCells({ stacks[i][j], stacks[i][j + 1], stacks[i][j + 2], stacks[i][j + 3] },
                     "background-color: #65B741;");
                 return true;
             }
@@ -98,7 +93,7 @@ bool Connect4Game::isWinner()
 
             if (found_winner)
             {
-                colorCells({ stacks[i][j], stacks[i+1][j], stacks[i+2][j], stacks[i+3][j] },
+                styleCells({ stacks[i][j], stacks[i+1][j], stacks[i+2][j], stacks[i+3][j] },
                     "background-color: #65B741;");
                 return true;
             }
@@ -118,7 +113,7 @@ bool Connect4Game::isWinner()
 
             if (found_winner)
             {
-                colorCells({ stacks[i][j], stacks[i + 1][i + 1], stacks[i + 2][j + 2], stacks[i + 3][j + 3] },
+                styleCells({ stacks[i][j], stacks[i + 1][i + 1], stacks[i + 2][j + 2], stacks[i + 3][j + 3] },
                     "background-color: #65B741;");
                 return true;
             }
@@ -137,7 +132,7 @@ bool Connect4Game::isWinner()
 
             if (found_winner)
             {
-                colorCells({ stacks[i][j], stacks[i + 1][j - 1], stacks[i + 2][j - 2], stacks[i + 3][j - 3] },
+                styleCells({ stacks[i][j], stacks[i + 1][j - 1], stacks[i + 2][j - 2], stacks[i + 3][j - 3] },
                     "background-color: #65B741;");
                 return true;
             }
@@ -153,18 +148,20 @@ bool Connect4Game::isDraw()
     return n_moves == 42 && !isWinner();
 }
 
-bool Connect4Game::updateBoard(QChar symbol, int index)
+bool Connect4Game::updateBoard(QChar symbol, QColor color, int index)
 {
-    int first_filled = 5;
-    while (first_filled >= 0 && stacks[index][first_filled]->text().isEmpty())
-        first_filled--;
+    int firstFilled = 5;
+    while (firstFilled >= 0 && stacks[index][firstFilled]->text().isEmpty())
+        firstFilled--;
 
-    if (first_filled < 5)
+    if (firstFilled < 5)
     {
-        if (first_filled == 4)      // stack is filled
+        stacks[index][firstFilled + 1]->setText(symbol);
+        stacks[index][firstFilled + 1]->setStyleSheet("color: " + color.name() + ";");
+
+        if (firstFilled == 4)      // stack is filled
             disableButton(index);
 
-        stacks[index][first_filled + 1]->setText(symbol);
         return true;
     }
     return false;
@@ -202,12 +199,10 @@ bool Connect4Game::incrementMoves()
     return false;
 }
 
-void Connect4Game::colorCells(const QVector<QLabel*>& labels, const QString& qss)
+void Connect4Game::styleCells(const QVector<QLabel*>& labels, const QString& qss)
 {
     for (auto& label : labels)
-    {
         label->setStyleSheet(qss);
-    }
 }
 
 void Connect4Game::enableButton(int index)
@@ -225,9 +220,14 @@ void Connect4Game::disableButton(int index)
 void Connect4Game::showStatus(bool win)
 {
     if (win)
-        QMessageBox::question(this, "Win", "Player: " + players[turn]->getName() + " WINS", QMessageBox::Ok);
+    {
+        stack->insertWidget(2, new ResultFrame("Player: " + players[turn]->getName() + " WINS", 1, stack));
+    }
     else
-        QMessageBox::question(this, "Draw", "It's a draw", QMessageBox::Ok);
+    {
+        stack->insertWidget(2, new ResultFrame("TIE!", 0, stack));
+    }
+    stack->setCurrentIndex(2);
 }
 
 void Connect4Game::resetGame()
@@ -309,11 +309,13 @@ void Connect4Game::onHomeButton()
 
 void Connect4Game::onButtonClick(int index)
 {
-    PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
 
     // index < 0, means don't update board
     if (index >= 0)
-        updateBoard(players[turn]->getSymbol(), index);
+    {
+        PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
+        updateBoard(players[turn]->getSymbol(), players[turn]->getColor(), index);
+    }
     
     if (isWinner())
     {

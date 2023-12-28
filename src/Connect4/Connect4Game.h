@@ -11,8 +11,7 @@ class Connect4Game : public Game
     Q_OBJECT
 
 public:
-    Connect4Game(const QString& playerName1, QStackedWidget* parent = nullptr);
-    Connect4Game(const QString& playerName1, const QString& playerName2, QStackedWidget* parent = nullptr);
+    Connect4Game(Player* player1, Player* player2, QStackedWidget* parent = nullptr);
     ~Connect4Game();
 
     // ------------ Game Functions -------------
@@ -41,7 +40,7 @@ public:
     // ------------ Gui Modifiers ---------------
 
     // Updates the board at the given index with a specific value
-    bool updateBoard(QChar, int);
+    bool updateBoard(QChar, QColor, int);
 
     // Returns the current player's turn
     bool getTurn();
@@ -53,7 +52,7 @@ public:
     bool incrementMoves();
 
     // Color 4 cells
-    void colorCells(const QVector<QLabel*>&, const QString&);
+    void styleCells(const QVector<QLabel*>&, const QString&);
 
     // Enable a button
     void enableButton(int index);
@@ -84,14 +83,15 @@ private:
 class Connect4Player : public Player
 {
 public:
-    Connect4Player(Game* game, QChar symbol);
-    Connect4Player(Game* game, QChar symbol, const QString& name, const QColor& color);
+    Connect4Player(QChar symbol);
+    Connect4Player(QChar symbol, const QString& name, const QColor& color);
 
     QChar getSymbol();
     QColor getColor();
     QString getName();
+    void setGame(Game*);
     // Reconnects the free buttons to suit the next player
-    // Different in PyramidComputerPlayer
+    // Different in PyramidAiPlayer
     void getMove();
 
 private:
@@ -101,16 +101,17 @@ private:
     QColor color;
 };
 
-class Connect4ComputerPlayer : public Player
+class Connect4RandomPlayer : public Player
 {
 public:
 
-    Connect4ComputerPlayer(Game* game, QChar symbol);
-    Connect4ComputerPlayer(Game* game, QChar symbol, const QColor& color);
+    Connect4RandomPlayer(QChar symbol);
+    Connect4RandomPlayer(QChar symbol, const QColor& color);
 
     QChar getSymbol();
     QColor getColor();
     QString getName();
+    void setGame(Game* game);
 
     // use the algorithm to choose a position and use it
     void getMove();

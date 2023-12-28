@@ -1,47 +1,29 @@
 #include "5x5/FFiveGame.h"
+#include "ResultFrame/ResultFrame.h"
 #include <QMessageBox>
 #include <Windows.h>
 
-FFiveGame::FFiveGame(const QString& playerName1, QStackedWidget* parent)
+FFiveGame::FFiveGame(Player* player1, Player* player2, QStackedWidget* parent)
     : Game(parent), ui(new Ui_FFiveGame()), n_moves(0)
     , turn(0), p1(0), p2(0), stack(parent)
 {
     ui->setupUi(this);
 
     // Take the two players
-    this->players[0] = new FFivePlayer(this, 'X', playerName1.isEmpty() ? "Unkown Player" : playerName1 , QColor(0, 0, 170));
-    this->players[1] = new FFiveComputerPlayer(this, 'O');
+    this->players[0] = player1;
+    this->players[1] = player2;
+
+    // Pass them the game
+    this->players[0]->setGame(this);
+    this->players[1]->setGame(this);
 
     // Show Names
     ui->player1Label->setText(players[0]->getName());
     ui->player2Label->setText(players[1]->getName());
 
     // Fill the board
-    board.push_back(ui->pushButton1);
-    board.push_back(ui->pushButton2);
-    board.push_back(ui->pushButton3);
-    board.push_back(ui->pushButton4);
-    board.push_back(ui->pushButton5);
-    board.push_back(ui->pushButton6);
-    board.push_back(ui->pushButton7);
-    board.push_back(ui->pushButton8);
-    board.push_back(ui->pushButton9);
-    board.push_back(ui->pushButton10);
-    board.push_back(ui->pushButton11);
-    board.push_back(ui->pushButton12);
-    board.push_back(ui->pushButton13);
-    board.push_back(ui->pushButton14);
-    board.push_back(ui->pushButton15);
-    board.push_back(ui->pushButton16);
-    board.push_back(ui->pushButton17);
-    board.push_back(ui->pushButton18);
-    board.push_back(ui->pushButton19);
-    board.push_back(ui->pushButton20);
-    board.push_back(ui->pushButton21);
-    board.push_back(ui->pushButton22);
-    board.push_back(ui->pushButton23);
-    board.push_back(ui->pushButton24);
-    board.push_back(ui->pushButton25);
+    for (int i = 1; i <= 25; ++i)
+        board.push_back(this->findChild<QPushButton*>("pushButton" + QString::number(i)));
 
     // Connecting restart & home buttons
     connect(ui->restartButton, &QPushButton::clicked, this, &FFiveGame::resetGame);
@@ -49,20 +31,6 @@ FFiveGame::FFiveGame(const QString& playerName1, QStackedWidget* parent)
 
     // Get the first move
     players[turn]->getMove();
-}
-
-// For human player
-FFiveGame::FFiveGame(const QString& playerName1, const QString& playerName2, QStackedWidget* parent)
-    : FFiveGame(playerName1, parent)
-{
-    // Delete Random player
-    delete this->players[1];
-
-    // Create new player
-    this->players[1] = new FFivePlayer(this, 'O', playerName2.isEmpty() ? "Unkown Player" : playerName2, QColor(170, 0, 0));
-
-    // Update the label
-    ui->player2Label->setText(players[1]->getName());
 }
 
 FFiveGame::~FFiveGame()
@@ -147,9 +115,15 @@ bool FFiveGame::isDraw()
 void FFiveGame::showStatus(bool win)
 {
     if (win)
-        QMessageBox::question(this, "Win", "Player: " + players[turn]->getName() + " WINS", QMessageBox::Ok);
+    {
+        stack->insertWidget(2, new ResultFrame("Player: " + players[turn]->getName() + " WINS" + 
+            "\nScore: " + (turn ? ui->player2Score->text() : ui->player1Score->text()), 1, stack));
+    }
     else
-        QMessageBox::question(this, "Draw", "It's a draw", QMessageBox::Ok);
+    {
+        stack->insertWidget(2, new ResultFrame("TIE!", 0, stack));
+    }
+    stack->setCurrentIndex(2);
 }
 
 void FFiveGame::resetGame()
@@ -160,6 +134,7 @@ void FFiveGame::resetGame()
         for (auto& button : board)
         {
             button->setDisabled(false);
+            button->setStyleSheet("");
             button->setText("");
         }
 
@@ -197,11 +172,12 @@ void FFiveGame::nextPlayerMove()
     players[turn]->getMove();
 }
 
-bool FFiveGame::updateBoard(QChar symbol, int index)
+bool FFiveGame::updateBoard(QChar symbol, QColor color, int index)
 {
     if (board[index]->text().isEmpty())
     {
         board[index]->setText(symbol.toUpper());
+        board[index]->setStyleSheet("color: " + color.name() + ";");
         board[index]->setDisabled(true);
         n_moves++;
         return true;
@@ -316,8 +292,11 @@ void FFiveGame::onHomeButton()
 
 void FFiveGame::onButtonClick(int index)
 {
-    PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
-    updateBoard(players[turn]->getSymbol(), index);
+    if (index >= 0)
+    {
+        PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
+        updateBoard(players[turn]->getSymbol(), players[turn]->getColor(), index);
+    }
 
     if (isWinner())
     {

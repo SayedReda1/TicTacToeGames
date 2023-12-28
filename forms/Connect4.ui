@@ -22,8 +22,7 @@
 }
 QPushButton {
 	color: rgb(185, 185, 185);
-	border-radius: 5px;
-	
+	border-radius: 10px;
 	background-color: #232D3F;
 }
 
@@ -33,7 +32,6 @@ QPushButton:hover {
 
 QLabel {
 	color: rgb(209, 209, 209);
-	font: 12pt &quot;Comic Sans MS&quot;;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2" rowstretch="3,0,0,1,0,2">
@@ -1332,6 +1330,13 @@ QFrame &gt; QWidget {
    </item>
    <item row="4" column="6" colspan="2">
     <widget class="QLabel" name="player2Label">
+     <property name="font">
+      <font>
+       <family>Comic Sans MS</family>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1393,6 +1398,13 @@ QFrame &gt; QWidget {
    </item>
    <item row="4" column="1" colspan="2">
     <widget class="QLabel" name="player1Label">
+     <property name="font">
+      <font>
+       <family>Comic Sans MS</family>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>

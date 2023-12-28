@@ -1,32 +1,37 @@
 #include "PyramidGame.h"
 
 
-PyramidComputerPlayer::PyramidComputerPlayer(Game* game, QChar symbol)
-	: game(game), symbol(symbol), name("Computer Player")
+PyramidAiPlayer::PyramidAiPlayer(QChar symbol)
+	: game(nullptr), symbol(symbol), name("Ai Player")
 {
 }
 
-PyramidComputerPlayer::PyramidComputerPlayer(Game* game, QChar symbol, const QColor& color)
-	: game(game), name("Computer Player"), color(color), symbol(symbol)
+PyramidAiPlayer::PyramidAiPlayer(QChar symbol, const QColor& color)
+	: game(nullptr), name("Ai Player"), color(color), symbol(symbol)
 {
 }
 
-QChar PyramidComputerPlayer::getSymbol()
+QChar PyramidAiPlayer::getSymbol()
 {
     return symbol;
 }
 
-QColor PyramidComputerPlayer::getColor()
+QColor PyramidAiPlayer::getColor()
 {
     return color;
 }
 
-QString PyramidComputerPlayer::getName()
+QString PyramidAiPlayer::getName()
 {
     return name;
 }
 
-void PyramidComputerPlayer::getMove()
+void PyramidAiPlayer::setGame(Game* game)
+{
+    this->game = game;
+}
+
+void PyramidAiPlayer::getMove()
 {
 	// 1) Try the algo and make a move
 	QVector<QChar> board = game->getBoard()[0];
@@ -49,27 +54,12 @@ void PyramidComputerPlayer::getMove()
 			}
 		}
 	}
-	game->updateBoard(symbol, x);
+	game->updateBoard(symbol, color, x);
 
-	// 2) Check for a winner
-	if (game->isWinner())
-	{
-		game->showStatus(true);
-		game->endGame();
-		return;
-	}
-	else if (game->isDraw())
-	{
-		game->showStatus(false);
-		game->endGame();
-		return;
-	}
-
-	// 3) Next player
-	game->nextPlayerMove();
+    game->onButtonClick(-1);
 }
 
-int PyramidComputerPlayer::minimax(QVector<QChar>& board, bool isMaximizing)
+int PyramidAiPlayer::minimax(QVector<QChar>& board, bool isMaximizing)
 {
     int check = this->check(board);
     if (check != 1)
@@ -117,9 +107,9 @@ int PyramidComputerPlayer::minimax(QVector<QChar>& board, bool isMaximizing)
     }
 }
 
-int PyramidComputerPlayer::check(QVector<QChar>& board)
+int PyramidAiPlayer::check(QVector<QChar>& board)
 {
-	// 10	-> PyramidComputerPlayer wins
+	// 10	-> PyramidAiPlayer wins
 	// -10	-> Opponent wins
 	// 0	-> draw
 	// 1	-> non of the above

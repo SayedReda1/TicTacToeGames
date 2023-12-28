@@ -4,13 +4,13 @@
 #include "PyramidGame.h"
 
 
-PyramidPlayer::PyramidPlayer(Game* game, QChar symbol)
-	: game(game), symbol(symbol.toUpper()), name("Unkown")
+PyramidPlayer::PyramidPlayer(QChar symbol)
+	: game(nullptr), symbol(symbol.toUpper()), name("Unkown")
 {
 }
 
-PyramidPlayer::PyramidPlayer(Game* game, QChar symbol, const QString& name, const QColor& color)
-	: game(game), name(name), color(color), symbol(symbol.toUpper())
+PyramidPlayer::PyramidPlayer(QChar symbol, const QString& name, const QColor& color)
+	: game(nullptr), name(name), color(color), symbol(symbol.toUpper())
 {
 }
 
@@ -27,6 +27,11 @@ QColor PyramidPlayer::getColor()
 QString PyramidPlayer::getName()
 {
 	return name;
+}
+
+void PyramidPlayer::setGame(Game* game)
+{
+	this->game = game;
 }
 
 void PyramidPlayer::getMove()
