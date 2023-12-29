@@ -12,7 +12,7 @@ public:
 
 public slots:
 	void onBackButton();
-	void onHomeButton();
+	void onHomeButtonClick();
 
 private:
 	QStackedWidget* stack;

@@ -38,7 +38,7 @@ PyramidGame::PyramidGame(Player* player1, Player* player2, QStackedWidget* paren
     board.push_back(ui->pushButton9);
 
     connect(ui->restartButton, &QPushButton::clicked, this, &PyramidGame::resetGame);
-    connect(ui->homeButton, &QPushButton::clicked, this, &PyramidGame::onHomeButton);
+    connect(ui->homeButton, &QPushButton::clicked, this, &PyramidGame::onHomeButtonClick);
 
     // Get the first move
     players[turn]->getMove();
@@ -48,6 +48,7 @@ PyramidGame::~PyramidGame()
 {
     delete players[0];
     delete players[1];
+
     delete ui;
 }
 
@@ -81,7 +82,7 @@ bool PyramidGame::isDraw()
     return n_moves == 9 && !isWinner();
 }
 
-bool PyramidGame::updateBoard(QChar symbol, QColor color, int index)
+bool PyramidGame::updateBoard(QChar symbol, const QColor& color, int index)
 {
     if (board[index]->text().isEmpty())
     {
@@ -216,7 +217,7 @@ void PyramidGame::disconnectButtons()
 
 }
 
-void PyramidGame::onHomeButton()
+void PyramidGame::onHomeButtonClick()
 {
     if (QMessageBox::warning(this, "Go To Home", "This will erase your progress\nAre you sure to exit?", 
         QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)

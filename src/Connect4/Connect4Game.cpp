@@ -44,7 +44,7 @@ Connect4Game::Connect4Game(Player* player1, Player* player2, QStackedWidget* par
 
     // Restart Button & Home Button
     connect(ui->restartButton, &QPushButton::clicked, this, &Connect4Game::resetGame);
-    connect(ui->homeButton, &QPushButton::clicked, this, &Connect4Game::onHomeButton);
+    connect(ui->homeButton, &QPushButton::clicked, this, &Connect4Game::onHomeButtonClick);
 
     // Get the first move
     players[turn]->getMove();
@@ -148,7 +148,7 @@ bool Connect4Game::isDraw()
     return n_moves == 42 && !isWinner();
 }
 
-bool Connect4Game::updateBoard(QChar symbol, QColor color, int index)
+bool Connect4Game::updateBoard(QChar symbol, const QColor& color, int index)
 {
     int firstFilled = 5;
     while (firstFilled >= 0 && stacks[index][firstFilled]->text().isEmpty())
@@ -298,7 +298,7 @@ void Connect4Game::disconnectButtons()
     disconnect(adders[6], &QPushButton::clicked, 0, 0);
 }
 
-void Connect4Game::onHomeButton()
+void Connect4Game::onHomeButtonClick()
 {
     if (QMessageBox::warning(this, "Go To Home", "This will erase your progress\nAre you sure to exit?",
         QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)

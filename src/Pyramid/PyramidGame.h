@@ -44,7 +44,7 @@ public:
     // ------------ Gui Modifiers ---------------
 
     // Updates the board at the given index with a specific value
-    bool updateBoard(QChar, QColor, int);
+    bool updateBoard(QChar, const QColor&, int);
 
     // Returns the current player's turn
     bool getTurn();
@@ -65,8 +65,8 @@ public:
     void disconnectButtons();
 
 public slots:
-    void onButtonClick(int index);
-    void onHomeButton();
+    void onButtonClick(int);
+    void onHomeButtonClick();
 
 private:
     bool turn;

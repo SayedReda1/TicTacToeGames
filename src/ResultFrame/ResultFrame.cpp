@@ -36,7 +36,7 @@ ResultFrame::ResultFrame(const QString& msg, bool status, QStackedWidget* parent
 	}
 
 	connect(ui->backButton, &QPushButton::clicked, this, &ResultFrame::onBackButton);
-	connect(ui->homeButton, &QPushButton::clicked, this, &ResultFrame::onHomeButton);
+	connect(ui->homeButton, &QPushButton::clicked, this, &ResultFrame::onHomeButtonClick);
 }
 
 void ResultFrame::onBackButton()
@@ -44,7 +44,7 @@ void ResultFrame::onBackButton()
 	stack->setCurrentIndex(1);
 }
 
-void ResultFrame::onHomeButton()
+void ResultFrame::onHomeButtonClick()
 {
 	stack->setCurrentIndex(0);
 }

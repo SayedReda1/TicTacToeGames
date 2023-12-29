@@ -36,7 +36,7 @@ public:
 	// ------------ Gui Modifiers ---------------
 
 	// Updates the board at the given index with a specific value
-	virtual bool updateBoard(QChar,QColor, int) = 0;
+	virtual bool updateBoard(QChar,const QColor&, int) = 0;
 
 	// Returns the current player's turn
 	virtual bool getTurn() = 0;

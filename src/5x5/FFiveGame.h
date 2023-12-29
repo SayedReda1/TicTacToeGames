@@ -41,7 +41,7 @@ public:
     // ------------ Gui Modifiers ---------------
 
     // Updates the board at the given index with a specific value
-    bool updateBoard(QChar, QColor, int);
+    bool updateBoard(QChar, const QColor&, int);
 
     // Highlights the winners moves at the end of the game
     //void highlight_wins(QChar winner_symbol);
@@ -66,7 +66,7 @@ public:
 
 public slots:
     void onButtonClick(int index);
-    void onHomeButton();
+    void onHomeButtonClick();
 
 
 private:

@@ -27,7 +27,7 @@ FFiveGame::FFiveGame(Player* player1, Player* player2, QStackedWidget* parent)
 
     // Connecting restart & home buttons
     connect(ui->restartButton, &QPushButton::clicked, this, &FFiveGame::resetGame);
-    connect(ui->homeButton, &QPushButton::clicked, this, &FFiveGame::onHomeButton);
+    connect(ui->homeButton, &QPushButton::clicked, this, &FFiveGame::onHomeButtonClick);
 
     // Get the first move
     players[turn]->getMove();
@@ -172,7 +172,7 @@ void FFiveGame::nextPlayerMove()
     players[turn]->getMove();
 }
 
-bool FFiveGame::updateBoard(QChar symbol, QColor color, int index)
+bool FFiveGame::updateBoard(QChar symbol, const QColor& color, int index)
 {
     if (board[index]->text().isEmpty())
     {
@@ -281,7 +281,7 @@ void FFiveGame::updateScoreLabels()
     ui->player2Score->setText(QString::number(p2));
 }
 
-void FFiveGame::onHomeButton()
+void FFiveGame::onHomeButtonClick()
 {
     if (QMessageBox::warning(this, "Go To Home", "This will erase your progress\nAre you sure to exit?",
         QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)

@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
-    <height>550</height>
+    <width>500</width>
+    <height>500</height>
    </size>
   </property>
   <property name="styleSheet">
@@ -21,7 +21,7 @@
 	background-color: #232D3F;
 }</string>
   </property>
-  <layout class="QGridLayout" name="mainLayout">
+  <layout class="QGridLayout" name="mainLayout" rowstretch="1,5,1" columnstretch="1,5,1">
    <item row="1" column="0">
     <spacer name="horizontalSpacer">
      <property name="orientation">
@@ -78,8 +78,14 @@
     <widget class="QFrame" name="mainFrame">
      <property name="minimumSize">
       <size>
-       <width>400</width>
-       <height>500</height>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>450</width>
+       <height>550</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -228,6 +234,9 @@ font: 700 14pt &quot;Calibri&quot;;</string>
           <pointsize>12</pointsize>
          </font>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -264,6 +273,9 @@ font: 700 14pt &quot;Calibri&quot;;</string>
           <family>Calibri</family>
           <pointsize>12</pointsize>
          </font>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="placeholderText">
          <string>Choose Mode</string>

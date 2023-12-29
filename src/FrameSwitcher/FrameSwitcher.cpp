@@ -1,4 +1,5 @@
 #include "FrameSwitcher.h"
+#include <QPropertyAnimation>
 
 
 FrameSwitcher::FrameSwitcher(QStackedWidget* parent)
@@ -7,6 +8,15 @@ FrameSwitcher::FrameSwitcher(QStackedWidget* parent)
 	connect(this, &QStackedWidget::currentChanged, this, &FrameSwitcher::onCurrentChange);
 }
 
+FrameSwitcher::~FrameSwitcher()
+{
+	QWidget* widget = this->widget(0);
+	this->removeWidget(widget);
+
+	delete widget;
+}
+
+////////////// SLOTS /////////////////////
 void FrameSwitcher::onCurrentChange()
 {
 	int currentCount = this->count();
@@ -14,8 +24,11 @@ void FrameSwitcher::onCurrentChange()
 	for (int i = currentIndex() + 1; i < currentCount; ++i)
 	{
 		QWidget* widget = this->widget(i);
-		this->removeWidget(widget);
-
-		delete widget;
+		
+		if (widget != nullptr)
+		{
+			this->removeWidget(widget);
+			delete widget;
+		}
 	}
 }

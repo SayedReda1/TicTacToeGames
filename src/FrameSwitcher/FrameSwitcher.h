@@ -7,6 +7,7 @@ class FrameSwitcher : public QStackedWidget
 {
 public:
 	FrameSwitcher(QStackedWidget* parent = nullptr);
+	~FrameSwitcher();
 
 public slots:
 	void onCurrentChange();

@@ -84,7 +84,7 @@ void HomeFrame::onGoButton()
 		break;
 	}
 
-	case 1:
+	case 1:		// 5x5
 	{
 		if (mode == 0)		// vs Player
 			chosenGame = new FFiveGame(new FFivePlayer('X', ui->player1Line->text(), "#e94141")
@@ -96,7 +96,7 @@ void HomeFrame::onGoButton()
 		break;
 	}
 
-	case 2:
+	case 2:		// Connect4
 	{
 		if (mode == 0)		// vs Player
 			chosenGame = new Connect4Game(new Connect4Player('X', ui->player1Line->text(), "#e94141")
