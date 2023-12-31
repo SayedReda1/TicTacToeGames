@@ -1,5 +1,4 @@
 #include "ResultFrame.h"
-#include <Windows.h>
 
 ResultFrame::ResultFrame(const QString& msg, bool status, QStackedWidget* parent)
 	: QWidget(parent), stack(parent), ui(new Ui_Widget)

@@ -1,8 +1,8 @@
 #include "HomeFrame.h"
 #include <Windows.h>
-#include "Pyramid/PyramidGame.h"
-#include "5x5/FFiveGame.h"
-#include "Connect4/Connect4Game.h"
+#include "PyramidGame.h"
+#include "FFiveGame.h"
+#include "Connect4Game.h"
 
 
 HomeFrame::HomeFrame(QStackedWidget* parent)

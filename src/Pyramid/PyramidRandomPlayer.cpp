@@ -1,4 +1,4 @@
-#include "Pyramid/PyramidGame.h"
+#include "PyramidGame.h"
 #include <random>
 
 PyramidRandomPlayer::PyramidRandomPlayer(QChar symbol)

@@ -47,7 +47,7 @@ QLabel {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resource/resource.qrc">:/icons/vs.png</pixmap>
+      <pixmap resource="../Resources/resource.qrc">:/icons/vs.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -198,7 +198,7 @@ QFrame &gt; QWidget {
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset resource="../resource/resource.qrc">
+         <iconset resource="../Resources/resource.qrc">
           <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
         </property>
         <property name="iconSize">
@@ -230,7 +230,7 @@ QFrame &gt; QWidget {
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset resource="../resource/resource.qrc">
+         <iconset resource="../Resources/resource.qrc">
           <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
         </property>
         <property name="iconSize">
@@ -262,7 +262,7 @@ QFrame &gt; QWidget {
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset resource="../resource/resource.qrc">
+         <iconset resource="../Resources/resource.qrc">
           <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
         </property>
         <property name="iconSize">
@@ -319,7 +319,7 @@ QFrame &gt; QWidget {
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset resource="../resource/resource.qrc">
+         <iconset resource="../Resources/resource.qrc">
           <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
         </property>
         <property name="iconSize">
@@ -373,7 +373,7 @@ QFrame &gt; QWidget {
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset resource="../resource/resource.qrc">
+         <iconset resource="../Resources/resource.qrc">
           <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
         </property>
         <property name="iconSize">
@@ -471,7 +471,7 @@ QFrame &gt; QWidget {
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset resource="../resource/resource.qrc">
+         <iconset resource="../Resources/resource.qrc">
           <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
         </property>
         <property name="iconSize">
@@ -503,7 +503,7 @@ QFrame &gt; QWidget {
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset resource="../resource/resource.qrc">
+         <iconset resource="../Resources/resource.qrc">
           <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
         </property>
         <property name="iconSize">
@@ -1304,7 +1304,7 @@ QFrame &gt; QWidget {
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../resource/resource.qrc">
+      <iconset resource="../Resources/resource.qrc">
        <normaloff>:/icons/home.png</normaloff>:/icons/home.png</iconset>
      </property>
      <property name="iconSize">
@@ -1372,7 +1372,7 @@ QFrame &gt; QWidget {
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../resource/resource.qrc">
+      <iconset resource="../Resources/resource.qrc">
        <normaloff>:/icons/redo.png</normaloff>:/icons/redo.png</iconset>
      </property>
      <property name="iconSize">
@@ -1416,7 +1416,7 @@ QFrame &gt; QWidget {
   </layout>
  </widget>
  <resources>
-  <include location="../resource/resource.qrc"/>
+  <include location="../Resources/resource.qrc"/>
  </resources>
  <connections/>
 </ui>

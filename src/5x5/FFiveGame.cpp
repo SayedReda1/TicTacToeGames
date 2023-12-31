@@ -1,7 +1,6 @@
-#include "5x5/FFiveGame.h"
-#include "ResultFrame/ResultFrame.h"
+#include "FFiveGame.h"
+#include "ResultFrame.h"
 #include <QMessageBox>
-#include <Windows.h>
 
 FFiveGame::FFiveGame(Player* player1, Player* player2, QStackedWidget* parent)
     : Game(parent), ui(new Ui_FFiveGame()), n_moves(0)

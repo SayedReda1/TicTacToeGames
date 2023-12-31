@@ -241,7 +241,7 @@ QLabel {
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../resource/resource.qrc">
+      <iconset resource="../Resources/resource.qrc">
        <normaloff>:/icons/redo.png</normaloff>:/icons/redo.png</iconset>
      </property>
      <property name="iconSize">
@@ -416,7 +416,7 @@ QLabel {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resource/resource.qrc">:/icons/vs.png</pixmap>
+      <pixmap resource="../Resources/resource.qrc">:/icons/vs.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -447,7 +447,7 @@ QLabel {
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../resource/resource.qrc">
+      <iconset resource="../Resources/resource.qrc">
        <normaloff>:/icons/home.png</normaloff>:/icons/home.png</iconset>
      </property>
      <property name="iconSize">
@@ -503,8 +503,8 @@ QLabel {
   </layout>
  </widget>
  <resources>
-  <include location="../resource/resource.qrc"/>
-  <include location="../resource/resource.qrc"/>
+  <include location="../Resources/resource.qrc"/>
+  <include location="../Resources/resource.qrc"/>
   <include location="../resource/resource.qrc"/>
   <include location="C:/Users/sydr3/.designer/resource/resource.qrc"/>
  </resources>

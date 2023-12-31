@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 
 #include "PyramidGame.h"
-#include "ResultFrame/ResultFrame.h"
+#include "ResultFrame.h"
 #include <QTimer>
 #include <QMessageBox>
 #include <Windows.h>

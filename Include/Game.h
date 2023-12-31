@@ -1,4 +1,5 @@
 #include <QWidget>
+#include <Windows.h>    // For Sound
 
 // -----------------------------
 // ------ Game Blueprint -------

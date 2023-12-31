@@ -2,8 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 
 
-#include "HomeFrame/HomeFrame.h"
-#include <FrameSwitcher/FrameSwitcher.h>
+#include "HomeFrame.h"
+#include "FrameSwitcher.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

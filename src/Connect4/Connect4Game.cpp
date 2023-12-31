@@ -1,9 +1,7 @@
 #include "Connect4Game.h"
-#include "ResultFrame/ResultFrame.h"
+#include "ResultFrame.h"
 #include <QTimer>
 #include <QMessageBox>
-#include <Windows.h>
-
 
 Connect4Game::Connect4Game(Player* player1, Player* player2, QStackedWidget* parent)
     : Game(parent), ui(new Ui_Connect4Game), n_moves(0)

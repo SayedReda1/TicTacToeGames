@@ -3,7 +3,7 @@
 
 #include "Game.h"
 #include "ui_Connect4.h"
-#include <QStackedWidget.h>
+#include <QStackedWidget>
 
 
 class Connect4Game : public Game

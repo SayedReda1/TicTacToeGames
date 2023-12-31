@@ -191,7 +191,7 @@ QAbstractItemView::item:hover {
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="../resource/resource.qrc">:/icons/logo.png</pixmap>
+           <pixmap resource="../Resources/resource.qrc">:/icons/logo.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -348,7 +348,7 @@ font: 700 14pt &quot;Calibri&quot;;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="../resource/resource.qrc">:/icons/vs.png</pixmap>
+         <pixmap resource="../Resources/resource.qrc">:/icons/vs.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -409,6 +409,7 @@ font: 700 14pt &quot;Calibri&quot;;</string>
   </layout>
  </widget>
  <resources>
+  <include location="../Resources/resource.qrc"/>
   <include location="../resource/resource.qrc"/>
  </resources>
  <connections/>

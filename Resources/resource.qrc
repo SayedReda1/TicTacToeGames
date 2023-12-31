@@ -1,7 +1,6 @@
 <RCC>
   <qresource prefix="/icons">
     <file>previous.png</file>
-    <file>next.png</file>
     <file>versus.png</file>
     <file>logo.png</file>
     <file>vs.png</file>
