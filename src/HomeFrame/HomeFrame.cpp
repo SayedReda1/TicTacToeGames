@@ -58,7 +58,7 @@ void HomeFrame::disable(QWidget* widget, const QString& style)
 ////////////// SLOTS //////////////////
 void HomeFrame::onGoButton()
 {
-	PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
+    PlaySound(TEXT("media/click.wav"), NULL, SND_ASYNC);
 	int game = ui->gameCombo->currentIndex();
 	int mode = ui->modeCombo->currentIndex();
 

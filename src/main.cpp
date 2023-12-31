@@ -8,7 +8,8 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
+    app.setWindowIcon(QIcon(":/icons/logo.ico"));
 
     FrameSwitcher switcher;
 
@@ -16,6 +17,5 @@ int main(int argc, char *argv[])
     switcher.insertWidget(0, new HomeFrame(&switcher));
     switcher.show();
 
-
-    return a.exec();
+    return app.exec();
 }

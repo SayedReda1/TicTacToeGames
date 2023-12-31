@@ -4,6 +4,7 @@
 
 #include "ui_ResultFrame.h"
 #include <QStackedWidget>
+#include <Windows.h>
 
 class ResultFrame : public QWidget
 {

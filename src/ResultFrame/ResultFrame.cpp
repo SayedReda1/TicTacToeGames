@@ -10,7 +10,7 @@ ResultFrame::ResultFrame(const QString& msg, bool status, QStackedWidget* parent
 	if (status)
 	{
 		// Play Win sound
-		PlaySound(TEXT("media/win.wav"), NULL, SND_ASYNC);
+        PlaySound(TEXT("media/win.wav"), NULL, SND_ASYNC);
 
 		ui->mainFrame->setStyleSheet(
 			"QFrame { background-color: #005B41; border-radius: 10px;  color: white; }"
@@ -23,7 +23,7 @@ ResultFrame::ResultFrame(const QString& msg, bool status, QStackedWidget* parent
 	else
 	{
 		// Play tie sound
-		PlaySound(TEXT("media/tie.wav"), NULL, SND_ASYNC);
+        PlaySound(TEXT("media/tie.wav"), NULL, SND_ASYNC);
 
 		ui->mainFrame->setStyleSheet(
 			"QFrame { background-color: #526D82; border-radius: 10px;  color: white; }"
